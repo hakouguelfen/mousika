@@ -6,8 +6,9 @@ import 'package:music_play/constants.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/notifiers/play_button_notifier.dart';
 import 'package:music_play/notifiers/progressbar_notifier.dart';
+import 'package:music_play/screens/musicPlayer/components/music_slider.dart';
 import 'package:music_play/services/service_locator.dart';
-import 'components/music_cover.dart';
+import 'components/music_image_cover.dart';
 
 class MusicPlayer extends StatefulWidget {
   final MediaItem songMetaData;
@@ -19,12 +20,15 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   bool isFavourite = false;
+  bool currentSong = true;
   final pageManager = getIt<PageManager>();
 
   @override
   void initState() {
     super.initState();
-    widget.songMetaData == pageManager.currentSongNotifier.value;
+    if (widget.songMetaData != pageManager.currentSongNotifier.value) {
+      currentSong = !currentSong;
+    }
   }
 
   @override
@@ -39,7 +43,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             color: Theme.of(context).iconTheme.color,
           ),
         ),
-        title: widget.songMetaData == pageManager.currentSongNotifier.value
+        title: currentSong
             ? ValueListenableBuilder<ButtonState>(
                 valueListenable: pageManager.playButtonNotifier,
                 builder: (_, buttonState, __) {
@@ -74,43 +78,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
             children: [
               const MusicImageCover(),
               musicDescription(),
-              musicSlider(),
+              MusicSlider(currentSong: currentSong),
               musicController(),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Expanded musicSlider() {
-    return Expanded(
-      child: ValueListenableBuilder<MediaItem>(
-        child: ValueListenableBuilder<ProgressBarState>(
-          valueListenable: pageManager.progressNotifier,
-          builder: (_, dynamic progressVal, __) {
-            return SliderProgress(
-              current: progressVal.current.inSeconds.toDouble(),
-              maxVal: progressVal.total.inSeconds.toDouble(),
-              changeSlideVal: (double value) {
-                setState(() {
-                  Duration position = Duration(seconds: value.toInt());
-                  pageManager.seek(position);
-                });
-              },
-            );
-          },
-        ),
-        valueListenable: pageManager.currentSongNotifier,
-        builder: (_, dynamic value, Widget? child) {
-          return widget.songMetaData == pageManager.currentSongNotifier.value
-              ? Container(child: child)
-              : SliderProgress(
-                  current: 0.0,
-                  maxVal: 0.0,
-                  changeSlideVal: (double val) {},
-                );
-        },
       ),
     );
   }
@@ -128,36 +100,30 @@ class _MusicPlayerState extends State<MusicPlayer> {
               color: Theme.of(context).iconTheme.color,
             ),
           ),
-          ValueListenableBuilder<MediaItem>(
-            valueListenable: pageManager.currentSongNotifier,
-            child: ValueListenableBuilder<ButtonState>(
-                valueListenable: pageManager.playButtonNotifier,
-                builder: (_, buttonState, __) {
-                  return PlayButton(
-                    press: () {
-                      buttonState == ButtonState.paused
-                          ? pageManager.play()
-                          : pageManager.pause();
-                    },
-                    buttonState: buttonState == ButtonState.paused ||
-                        buttonState == ButtonState.loading,
-                  );
-                }),
-            builder: (_, dynamic value, Widget? child) {
-              return widget.songMetaData ==
-                      pageManager.currentSongNotifier.value
-                  ? Container(child: child)
-                  : PlayButton(
-                      press: () {
-                        setState(() {
-                          pageManager.playSpecificSong(widget.songMetaData);
-                          pageManager.play();
-                        });
-                      },
-                      buttonState: true,
-                    );
-            },
-          ),
+          ValueListenableBuilder<ButtonState>(
+              valueListenable: pageManager.playButtonNotifier,
+              builder: (_, buttonState, __) {
+                return currentSong
+                    ? PlayButton(
+                        press: () {
+                          buttonState == ButtonState.paused
+                              ? pageManager.play()
+                              : pageManager.pause();
+                        },
+                        buttonState: buttonState == ButtonState.paused ||
+                            buttonState == ButtonState.loading,
+                      )
+                    : PlayButton(
+                        press: () {
+                          setState(() {
+                            currentSong = !currentSong;
+                            pageManager.playSpecificSong(widget.songMetaData);
+                            pageManager.play();
+                          });
+                        },
+                        buttonState: true,
+                      );
+              }),
           IconButton(
             onPressed: () => pageManager.next(),
             icon: Icon(
@@ -180,7 +146,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           ValueListenableBuilder<MediaItem>(
             valueListenable: pageManager.currentSongNotifier,
             builder: (_, song, __) {
-              return widget.songMetaData == song
+              return currentSong
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,30 +238,5 @@ class PlayButton extends StatelessWidget {
     return _buttonState
         ? const Icon(Icons.arrow_right_rounded, size: 40)
         : const Icon(Icons.pause);
-  }
-}
-
-class SliderProgress extends StatelessWidget {
-  const SliderProgress({
-    Key? key,
-    required this.current,
-    required this.maxVal,
-    required this.changeSlideVal,
-  }) : super(key: key);
-
-  final double current;
-  final double maxVal;
-  final void Function(double) changeSlideVal;
-  @override
-  Widget build(BuildContext context) {
-    return Slider(
-      min: 0.0,
-      value: current,
-      max: maxVal,
-      onChanged: changeSlideVal,
-      activeColor: Theme.of(context).colorScheme.primary,
-      inactiveColor: Theme.of(context).cardColor,
-      thumbColor: Theme.of(context).colorScheme.primary,
-    );
   }
 }
