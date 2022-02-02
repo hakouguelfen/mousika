@@ -12,9 +12,10 @@ class MusicSlider extends StatefulWidget {
 }
 
 class _MusicSliderState extends State<MusicSlider> {
+  final pageManager = getIt<PageManager>();
+
   @override
   Widget build(BuildContext context) {
-    final pageManager = getIt<PageManager>();
     return Expanded(
       child: ValueListenableBuilder<ProgressBarState>(
         valueListenable: pageManager.progressNotifier,
@@ -54,28 +55,3 @@ Slider sliderProgress(BuildContext context, current, maxVal, changeSlideVal) {
     thumbColor: Theme.of(context).colorScheme.primary,
   );
 }
-
-// class SliderProgress extends StatelessWidget {
-//   const SliderProgress({
-//     Key? key,
-//     required this.current,
-//     required this.maxVal,
-//     required this.changeSlideVal,
-//   }) : super(key: key);
-
-//   final double current;
-//   final double maxVal;
-//   final void Function(double) changeSlideVal;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Slider(
-//       min: 0.0,
-//       value: current,
-//       max: maxVal,
-//       onChanged: changeSlideVal,
-//       activeColor: Theme.of(context).colorScheme.primary,
-//       inactiveColor: Theme.of(context).cardColor,
-//       thumbColor: Theme.of(context).colorScheme.primary,
-//     );
-//   }
-// }
