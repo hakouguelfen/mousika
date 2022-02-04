@@ -39,13 +39,13 @@ class AudioPlayerHandler extends BaseAudioHandler {
         controls: [
           MediaControl.skipToPrevious,
           if (playing) MediaControl.pause else MediaControl.play,
-          MediaControl.stop,
+          // MediaControl.stop,
           MediaControl.skipToNext,
         ],
         systemActions: const {
           MediaAction.seek,
         },
-        androidCompactActionIndices: const [0, 1, 3],
+        androidCompactActionIndices: const [0, 1, 2],
         processingState: const {
           ProcessingState.idle: AudioProcessingState.idle,
           ProcessingState.loading: AudioProcessingState.loading,

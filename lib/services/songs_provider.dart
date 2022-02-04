@@ -32,6 +32,7 @@ class Songs {
     for (var file in musicFolder.listSync()) {
       if (file.path.endsWith('.mp3')) {
         final metadata = await parser.parse(file.path);
+        final artwork = await metadata?.artwork;
 
         _songs.add(
           MediaItem(
@@ -39,6 +40,7 @@ class Songs {
             title: metadata?.title ?? '',
             artist: metadata?.artist ?? '',
             album: metadata?.album ?? '',
+            extras: {'image': artwork!.exists ? artwork.data() : null},
           ),
         );
       }

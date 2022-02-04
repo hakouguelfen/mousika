@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/manager/page_manager.dart';
+import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/services/service_locator.dart';
 
 import 'package:music_play/constants.dart';
@@ -16,6 +17,8 @@ class MusicList extends StatefulWidget {
 }
 
 class _MusicListState extends State<MusicList> {
+  bool selected = false;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -24,7 +27,7 @@ class _MusicListState extends State<MusicList> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           Padding(
@@ -33,7 +36,10 @@ class _MusicListState extends State<MusicList> {
               onTap: () {
                 // pageManager.add();
               },
-              child: const Icon(Icons.nightlight),
+              child: Icon(
+                Icons.nightlight,
+                color: Theme.of(context).iconTheme.color,
+              ),
             ),
           ),
         ],
@@ -64,18 +70,40 @@ class _MusicListState extends State<MusicList> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: height * 0.03),
+
+                // This should be fixed
                 ValueListenableBuilder<List<MediaItem>>(
                   valueListenable: pageManager.playlistNotifier,
-                  builder: (context, playlistTitles, _) {
-                    return ListView.builder(
-                      itemCount: playlistTitles.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return MusicContainer(
-                          songMetaData: playlistTitles[index],
+                  builder: (_, playlist, __) {
+                    // listen to progress bar changes
+                    return ValueListenableBuilder<ProgressBarState>(
+                      valueListenable: pageManager.progressNotifier,
+                      builder: (_, progressVal, __) {
+                        // listen for current playing song
+                        return ValueListenableBuilder<MediaItem>(
+                          valueListenable: pageManager.currentSongNotifier,
+                          builder: (_, song, __) {
+                            return ListView.builder(
+                              itemCount: playlist.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final psongProgess =
+                                    progressVal.current.inSeconds.toDouble() *
+                                        (width - defaultPadding) /
+                                        progressVal.total.inSeconds.toDouble();
+
+                                return MusicContainer(
+                                  containerWidth: playlist[index] == song
+                                      ? psongProgess
+                                      : 0,
+                                  songMetaData: playlist[index],
+                                );
+                              },
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                            );
+                          },
                         );
                       },
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
                     );
                   },
                 ),

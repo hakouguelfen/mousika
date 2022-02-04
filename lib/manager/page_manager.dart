@@ -33,6 +33,7 @@ class PageManager {
   Future<void> _loadPlaylist() async {
     final songRepository = getIt<Songs>();
     final playlist = await songRepository.getSongs();
+
     _audioHandler.addQueueItems(playlist);
   }
 

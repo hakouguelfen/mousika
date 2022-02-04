@@ -1,21 +1,20 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/constants.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/services/service_locator.dart';
 
 class MusicImageCover extends StatefulWidget {
   const MusicImageCover({
     Key? key,
+    required this.songMetaData,
   }) : super(key: key);
+
+  final MediaItem songMetaData;
 
   @override
   State<MusicImageCover> createState() => _MusicImageCoverState();
 }
 
 class _MusicImageCoverState extends State<MusicImageCover> {
-  final pageManager = getIt<PageManager>();
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -27,18 +26,13 @@ class _MusicImageCoverState extends State<MusicImageCover> {
           height: double.maxFinite,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(defaultPadding),
-            child: ValueListenableBuilder<MediaItem>(
-              valueListenable: pageManager.currentSongNotifier,
-              builder: (_, song, __) {
-                return Hero(
-                  tag: 'song${song.title}',
-                  transitionOnUserGestures: true,
-                  child: const Image(
-                    image: AssetImage('assets/images/arcade.png'),
-                    fit: BoxFit.fill,
-                  ),
-                );
-              },
+            child: Hero(
+              tag: 'song${widget.songMetaData.title}',
+              transitionOnUserGestures: true,
+              child: const Image(
+                image: AssetImage('assets/images/arcade.png'),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),

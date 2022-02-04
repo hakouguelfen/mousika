@@ -51,7 +51,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
           padding: const EdgeInsets.all(defaultPadding),
           child: Column(
             children: [
-              const MusicImageCover(),
+              MusicImageCover(
+                songMetaData: widget.songMetaData,
+              ),
               MusicDescription(
                 currentSong: currentSong,
                 songMetaData: widget.songMetaData,
