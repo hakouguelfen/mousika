@@ -38,23 +38,29 @@ class MusicContainer extends StatelessWidget {
         child: Stack(
           children: [
             AnimatedContainer(
+              constraints: const BoxConstraints(
+                maxWidth: double.maxFinite,
+                minWidth: 0.0,
+              ),
               width: containerWidth,
               height: height * 0.1,
-              duration: const Duration(seconds: 2),
+              duration: const Duration(seconds: 1),
               curve: Curves.fastOutSlowIn,
               color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4),
             ),
             Row(
               children: [
                 Hero(
-                    tag: 'song${songMetaData.title}',
-                    transitionOnUserGestures: true,
-                    createRectTween: (begin, end) {
-                      return MaterialRectCenterArcTween(begin: begin, end: end);
-                    },
-                    child: songMetaData.extras!['image'] == null
-                        ? musicIcon()
-                        : musicImage()),
+                  tag: 'song${songMetaData.title}',
+                  transitionOnUserGestures: true,
+                  createRectTween: (begin, end) {
+                    return MaterialRectCenterArcTween(begin: begin, end: end);
+                  },
+                  child: songMetaData.extras!['image'] == null
+                      ? musicIcon()
+                      : musicImage(),
+                ),
+                const SizedBox(width: defaultPadding * 0.7),
                 Flexible(
                   flex: 3,
                   fit: FlexFit.tight,
