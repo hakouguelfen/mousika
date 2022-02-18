@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/services/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../services/favourite_music_service.dart';
 
 class MusicDescription extends StatefulWidget {
   const MusicDescription({
@@ -18,10 +23,25 @@ class MusicDescription extends StatefulWidget {
 
 class _MusicDescriptionState extends State<MusicDescription> {
   final pageManager = getIt<PageManager>();
-  bool isFavourite = false;
+  final favouriteSongs = getIt<FavouriteSongs>();
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> _isFavourite;
 
   @override
   Widget build(BuildContext context) {
+    _isFavourite = _prefs.then((SharedPreferences prefs) {
+      return prefs.getStringList('favouriteSong')!.contains(
+            json.encode(
+              SongMetadata(
+                id: widget.songMetaData.id,
+                title: widget.songMetaData.title,
+                artist: widget.songMetaData.artist ?? '',
+              ),
+            ),
+          );
+    });
+
     return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,16 +101,26 @@ class _MusicDescriptionState extends State<MusicDescription> {
                     );
             },
           ),
-          InkWell(
-            onTap: () => setState(() => isFavourite = !isFavourite),
-            child: favouriteSongStateIcon(),
-          ),
+          FutureBuilder<bool>(
+            future: _isFavourite,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return IconButton(
+                onPressed: () {
+                  snapshot.data
+                      ? favouriteSongs.removeSong(widget.songMetaData)
+                      : favouriteSongs.addSong(widget.songMetaData);
+                  setState(() {});
+                },
+                icon: favouriteSongStateIcon(snapshot.data ?? false),
+              );
+            },
+          )
         ],
       ),
     );
   }
 
-  Icon favouriteSongStateIcon() {
+  Icon favouriteSongStateIcon(bool isFavourite) {
     return isFavourite
         ? const Icon(Icons.favorite_rounded, size: 30, color: Colors.green)
         : const Icon(Icons.favorite_outline, size: 30);

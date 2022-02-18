@@ -6,8 +6,8 @@ import 'package:music_play/services/service_locator.dart';
 
 import 'package:music_play/constants.dart';
 
-import '../components/favorite_music.dart';
-import '../components/music_container.dart';
+import '../../components/favorite_music.dart';
+import '../../components/music_container.dart';
 
 class MusicList extends StatefulWidget {
   const MusicList({Key? key}) : super(key: key);
@@ -17,6 +17,8 @@ class MusicList extends StatefulWidget {
 }
 
 class _MusicListState extends State<MusicList> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -24,6 +26,23 @@ class _MusicListState extends State<MusicList> {
     final pageManager = getIt<PageManager>();
 
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) => setState(() => currentIndex = index),
+        currentIndex: currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_rounded),
+            label: 'search',
+          ),
+        ],
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        elevation: 0,
+      ),
       // bottomNavigationBar: const BottomMusicController(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -59,7 +78,7 @@ class _MusicListState extends State<MusicList> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: height * 0.03),
-                const FavoriteMusic(),
+                FavouriteMusic(),
                 SizedBox(height: height * 0.03),
                 Text(
                   'All Songs',

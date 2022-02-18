@@ -143,10 +143,4 @@ class _MusicPlayerState extends State<MusicPlayer> {
       ),
     );
   }
-
-  Icon musicStateIcon(bool _buttonState) {
-    return _buttonState
-        ? const Icon(Icons.arrow_right_rounded, size: 40)
-        : const Icon(Icons.pause);
-  }
 }

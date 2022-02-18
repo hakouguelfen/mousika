@@ -11,3 +11,4 @@ const cardColorLightTheme = Color(0xFFDCE2E0);
 const cardColorDarkTheme = Color(0xFF333349);
 
 const double defaultPadding = 16.0;
+const double defaultBorderRaduis = 10.0;

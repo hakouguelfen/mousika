@@ -17,6 +17,7 @@ class MusicContainer extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return InkWell(
+      borderRadius: BorderRadius.circular(10),
       onTap: () {
         Navigator.of(context).push(
           PageRouteBuilder(

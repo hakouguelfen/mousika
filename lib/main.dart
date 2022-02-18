@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'manager/page_manager.dart';
-import 'screens/music_list.dart';
+import 'screens/musicList/music_list.dart';
+import 'screens/musicPlayer/services/favourite_music_service.dart';
 import 'services/service_locator.dart';
 import 'theme.dart';
 
 void main() async {
   await setupServiceLocator();
+
   runApp(const MyApp());
 }
 
@@ -22,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getIt<PageManager>().init();
+    getIt<FavouriteSongs>().init();
   }
 
   @override

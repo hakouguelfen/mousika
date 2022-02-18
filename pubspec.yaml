@@ -18,6 +18,9 @@ dependencies:
   audio_service: ^0.18.3
   just_audio: ^0.9.18
   get_it: ^7.2.0
+  rive: ^0.7.22
+  shared_preferences: ^2.0.13
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +35,4 @@ flutter:
     - assets/images/
     - assets/music/
     - assets/icons/
+    - assets/rive/

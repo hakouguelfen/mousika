@@ -39,7 +39,6 @@ class AudioPlayerHandler extends BaseAudioHandler {
         controls: [
           MediaControl.skipToPrevious,
           if (playing) MediaControl.pause else MediaControl.play,
-          // MediaControl.stop,
           MediaControl.skipToNext,
         ],
         systemActions: const {
