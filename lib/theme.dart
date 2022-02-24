@@ -13,16 +13,38 @@ ThemeData lightThemeData(BuildContext context) {
         .apply(bodyColor: kContentColorLightTheme),
     colorScheme: const ColorScheme.light(
       primary: kPrimaryColor,
-      secondary: kSecondaryColor,
+      secondary: orange1,
       error: kErrorColor,
     ),
+    sliderTheme: SliderThemeData(
+      trackHeight: 12,
+      thumbShape: const RoundSliderThumbShape(
+        enabledThumbRadius: 15,
+      ),
+      thumbColor: orange1,
+      activeTrackColor: orange1,
+      inactiveTrackColor: cardColorLightTheme,
+      overlayColor: orange1.withOpacity(0.2),
+    ),
     cardColor: cardColorLightTheme,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: kContentColorLightTheme.withOpacity(0.7),
-      unselectedItemColor: kContentColorLightTheme.withOpacity(0.32),
-      selectedIconTheme: const IconThemeData(color: kPrimaryColor),
-      showUnselectedLabels: true,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: blue1,
+      foregroundColor: blue2,
+      elevation: 0,
+      extendedSizeConstraints: BoxConstraints.tightFor(
+        width: 200,
+        height: 90,
+      ),
+      largeSizeConstraints: BoxConstraints.tightFor(
+        width: 90,
+        height: 90,
+      ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      labelTextStyle: MaterialStateProperty.all(
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      ),
+      indicatorColor: blue1,
     ),
   );
 }
@@ -37,16 +59,39 @@ ThemeData darkThemeData(BuildContext context) {
         .apply(bodyColor: kContentColorDarkTheme),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: kPrimaryColor,
-      secondary: kSecondaryColor,
+      secondary: orange1,
       error: kErrorColor,
     ),
+    sliderTheme: SliderThemeData(
+      trackHeight: 12,
+      thumbShape: const RoundSliderThumbShape(
+        enabledThumbRadius: 15,
+      ),
+      thumbColor: orange1,
+      activeTrackColor: orange1,
+      inactiveTrackColor: cardColorDarkTheme,
+      overlayColor: orange1.withOpacity(0.2),
+    ),
     cardColor: cardColorDarkTheme,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: blue1,
+      foregroundColor: blue2,
+      elevation: 0,
+      extendedSizeConstraints: BoxConstraints.tightFor(
+        width: 200,
+        height: 90,
+      ),
+      largeSizeConstraints: BoxConstraints.tightFor(
+        width: 90,
+        height: 90,
+      ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      labelTextStyle: MaterialStateProperty.all(
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+      ),
+      indicatorColor: blue2,
       backgroundColor: kContentColorLightTheme,
-      selectedItemColor: Colors.white70,
-      unselectedItemColor: kContentColorDarkTheme.withOpacity(0.32),
-      selectedIconTheme: const IconThemeData(color: kPrimaryColor),
-      showUnselectedLabels: true,
     ),
   );
 }

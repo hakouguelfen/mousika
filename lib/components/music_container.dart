@@ -1,14 +1,16 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/music_card.dart';
+import 'package:music_play/components/song_info.dart';
 import 'package:music_play/constants.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
 
 class MusicContainer extends StatelessWidget {
-  final MediaItem songMetaData;
+  final MediaItem currentSong;
   final double containerWidth;
   const MusicContainer({
     Key? key,
-    required this.songMetaData,
+    required this.currentSong,
     required this.containerWidth,
   }) : super(key: key);
 
@@ -23,7 +25,7 @@ class MusicContainer extends StatelessWidget {
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 700),
             pageBuilder: (context, animation, _) => MusicPlayer(
-              songMetaData: songMetaData,
+              currentSong: currentSong,
             ),
           ),
         );
@@ -52,41 +54,30 @@ class MusicContainer extends StatelessWidget {
             Row(
               children: [
                 Hero(
-                  tag: 'song${songMetaData.title}',
+                  tag: 'song${currentSong.title}',
                   transitionOnUserGestures: true,
                   createRectTween: (begin, end) {
                     return MaterialRectCenterArcTween(begin: begin, end: end);
                   },
-                  child: songMetaData.extras!['image'] == null
-                      ? musicIcon()
+                  child: currentSong.extras!['image'] == null
+                      ? const MusicCard(
+                          width: 80,
+                          height: double.maxFinite,
+                          icon: Icons.music_note_rounded,
+                          size: 40,
+                          opacity: 0.0,
+                        )
                       : musicImage(),
                 ),
                 const SizedBox(width: defaultPadding * 0.7),
                 Flexible(
                   flex: 3,
                   fit: FlexFit.tight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        songMetaData.title,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 18,
-                            ),
-                      ),
-                      SizedBox(height: height * 0.01),
-                      Text(
-                        songMetaData.artist ?? '',
-                        style: TextStyle(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .color!
-                              .withOpacity(0.65),
-                        ),
-                      ),
-                    ],
+                  child: SongInfo(
+                    title: currentSong.title,
+                    artist: currentSong.artist ?? '',
+                    size: 0.01,
+                    fontSize: 18,
                   ),
                 ),
                 Flexible(
@@ -100,27 +91,6 @@ class MusicContainer extends StatelessWidget {
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Container musicIcon() {
-    return Container(
-      width: 80,
-      height: double.maxFinite,
-      child: const Icon(
-        Icons.music_note_rounded,
-        color: Colors.blueAccent,
-        size: 40,
-      ),
-      decoration: const BoxDecoration(
-        // color: Theme.of(context)
-        //     .scaffoldBackgroundColor
-        //     .withOpacity(0.4),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
         ),
       ),
     );

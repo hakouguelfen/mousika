@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:music_play/screens/Search/search_page.dart';
 
 import 'manager/page_manager.dart';
-import 'screens/musicList/music_list.dart';
+import 'screens/Home/home_page.dart';
 import 'screens/musicPlayer/services/favourite_music_service.dart';
 import 'services/service_locator.dart';
 import 'theme.dart';
@@ -20,6 +23,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int selectedIndex = 0;
+  List screens = const [
+    HomePage(),
+    SearchPage(),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +49,34 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
-      home: const MusicList(),
+      home: Scaffold(
+        body: screens[selectedIndex],
+        bottomNavigationBar: navBar(),
+      ),
+    );
+  }
+
+  NavigationBar navBar() {
+    return NavigationBar(
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home_rounded),
+          label: 'Home',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.search_outlined),
+          selectedIcon: Icon(Icons.search_rounded),
+          label: 'Search',
+        ),
+      ],
+      onDestinationSelected: (index) => setState(() {
+        selectedIndex = index;
+      }),
+      height: 70,
+      selectedIndex: selectedIndex,
+      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      animationDuration: const Duration(seconds: 1),
     );
   }
 }

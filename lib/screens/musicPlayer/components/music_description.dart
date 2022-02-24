@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/song_info.dart';
 import 'package:music_play/manager/page_manager.dart';
+import 'package:music_play/models/song_metadata_model.dart';
+import 'package:music_play/services/convert_song.dart';
 import 'package:music_play/services/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,12 +14,12 @@ import '../services/favourite_music_service.dart';
 class MusicDescription extends StatefulWidget {
   const MusicDescription({
     Key? key,
+    required this.isCurrentSong,
     required this.currentSong,
-    required this.songMetaData,
   }) : super(key: key);
 
-  final bool currentSong;
-  final MediaItem songMetaData;
+  final bool isCurrentSong;
+  final MediaItem currentSong;
   @override
   State<MusicDescription> createState() => _MusicDescriptionState();
 }
@@ -24,6 +27,7 @@ class MusicDescription extends StatefulWidget {
 class _MusicDescriptionState extends State<MusicDescription> {
   final pageManager = getIt<PageManager>();
   final favouriteSongs = getIt<FavouriteSongs>();
+  final convertSong = ConvertSong();
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<bool> _isFavourite;
@@ -33,11 +37,7 @@ class _MusicDescriptionState extends State<MusicDescription> {
     _isFavourite = _prefs.then((SharedPreferences prefs) {
       return prefs.getStringList('favouriteSong')!.contains(
             json.encode(
-              SongMetadata(
-                id: widget.songMetaData.id,
-                title: widget.songMetaData.title,
-                artist: widget.songMetaData.artist ?? '',
-              ),
+              convertSong.toSongMetadata(widget.currentSong),
             ),
           );
     });
@@ -50,54 +50,18 @@ class _MusicDescriptionState extends State<MusicDescription> {
           ValueListenableBuilder<MediaItem>(
             valueListenable: pageManager.currentSongNotifier,
             builder: (_, song, __) {
-              return widget.currentSong
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          song.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          song.artist ?? '',
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .color!
-                                .withOpacity(0.65),
-                          ),
-                        )
-                      ],
+              return widget.isCurrentSong
+                  ? SongInfo(
+                      title: song.title,
+                      artist: song.artist ?? '',
+                      size: 0.01,
+                      fontSize: 22,
                     )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.songMetaData.title,
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          widget.songMetaData.artist ?? '',
-                          style: TextStyle(
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .color!
-                                .withOpacity(0.65),
-                          ),
-                        ),
-                      ],
+                  : SongInfo(
+                      title: widget.currentSong.title,
+                      artist: widget.currentSong.artist ?? '',
+                      size: 0.01,
+                      fontSize: 22,
                     );
             },
           ),
@@ -107,8 +71,8 @@ class _MusicDescriptionState extends State<MusicDescription> {
               return IconButton(
                 onPressed: () {
                   snapshot.data
-                      ? favouriteSongs.removeSong(widget.songMetaData)
-                      : favouriteSongs.addSong(widget.songMetaData);
+                      ? favouriteSongs.removeSong(widget.currentSong)
+                      : favouriteSongs.addSong(widget.currentSong);
                   setState(() {});
                 },
                 icon: favouriteSongStateIcon(snapshot.data ?? false),

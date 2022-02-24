@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/music_card.dart';
 import 'package:music_play/constants.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/services/service_locator.dart';
@@ -8,10 +9,10 @@ import 'package:rive/rive.dart';
 class MusicImageCover extends StatefulWidget {
   const MusicImageCover({
     Key? key,
-    required this.songMetaData,
+    required this.currentSong,
   }) : super(key: key);
 
-  final MediaItem songMetaData;
+  final MediaItem currentSong;
 
   @override
   State<MusicImageCover> createState() => _MusicImageCoverState();
@@ -25,32 +26,20 @@ class _MusicImageCoverState extends State<MusicImageCover> {
     return Expanded(
       flex: 4,
       child: Hero(
-        tag: 'song${widget.songMetaData.title}',
+        tag: 'song${widget.currentSong.title}',
         // child: const RiveAnimation.asset(
         //   'assets/rive/musicPlayer.riv',
         //   fit: BoxFit.fill,
         // ),
-        child: widget.songMetaData.extras!['image'] == null
-            ? musicIcon()
+        child: widget.currentSong.extras!['image'] == null
+            ? const MusicCard(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                icon: Icons.music_note_rounded,
+                size: 200,
+                opacity: 1,
+              )
             : musicImage(),
-      ),
-    );
-  }
-
-  Container musicIcon() {
-    return Container(
-      width: double.maxFinite,
-      height: double.maxFinite,
-      child: const Icon(
-        Icons.music_note_rounded,
-        color: Colors.blueAccent,
-        size: 200,
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(defaultBorderRaduis),
-        ),
       ),
     );
   }
