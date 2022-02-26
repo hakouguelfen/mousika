@@ -5,15 +5,15 @@ import 'constants.dart';
 
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
-    primaryColor: kPrimaryColor,
+    primaryColor: orange1,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: kContentColorLightTheme),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: kContentColorLightTheme),
     colorScheme: const ColorScheme.light(
-      primary: kPrimaryColor,
-      secondary: orange1,
+      primary: blue1,
+      secondary: blue2,
       error: kErrorColor,
     ),
     sliderTheme: SliderThemeData(
@@ -42,7 +42,7 @@ ThemeData lightThemeData(BuildContext context) {
     ),
     navigationBarTheme: NavigationBarThemeData(
       labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
       ),
       indicatorColor: blue1,
     ),
@@ -54,12 +54,12 @@ ThemeData darkThemeData(BuildContext context) {
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: kContentColorLightTheme,
     appBarTheme: appBarTheme,
-    iconTheme: const IconThemeData(color: kContentColorDarkTheme, size: 30),
+    iconTheme: const IconThemeData(color: blue1),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: kContentColorDarkTheme),
     colorScheme: const ColorScheme.dark().copyWith(
-      primary: kPrimaryColor,
-      secondary: orange1,
+      primary: cardColorDarkTheme,
+      secondary: blue1,
       error: kErrorColor,
     ),
     sliderTheme: SliderThemeData(
@@ -74,8 +74,8 @@ ThemeData darkThemeData(BuildContext context) {
     ),
     cardColor: cardColorDarkTheme,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: blue1,
-      foregroundColor: blue2,
+      backgroundColor: cardColorDarkTheme,
+      foregroundColor: blue1,
       elevation: 0,
       extendedSizeConstraints: BoxConstraints.tightFor(
         width: 200,
@@ -88,10 +88,9 @@ ThemeData darkThemeData(BuildContext context) {
     ),
     navigationBarTheme: NavigationBarThemeData(
       labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
       ),
-      indicatorColor: blue2,
-      backgroundColor: kContentColorLightTheme,
+      indicatorColor: blue3,
     ),
   );
 }

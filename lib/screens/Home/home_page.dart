@@ -64,34 +64,35 @@ class _MusicListState extends State<HomePage> {
                 SizedBox(height: height * 0.03),
                 SizedBox(
                   height: height * 0.2,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 200,
-                        height: double.maxFinite,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding * 0.7,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding * 0.7,
-                        ),
-                        child: Icon(
-                          Icons.add_rounded,
-                          size: 80,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(defaultBorderRaduis),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: FavouriteMusic(),
-                      ),
-                    ],
-                  ),
+                  child: FavouriteMusic(),
+                  // child: Row(
+                  //   children: [
+                  //     // Container(
+                  //     //   width: 200,
+                  //     //   height: double.maxFinite,
+                  //     //   margin: const EdgeInsets.symmetric(
+                  //     //     horizontal: defaultPadding * 0.7,
+                  //     //   ),
+                  //     //   padding: const EdgeInsets.symmetric(
+                  //     //     horizontal: defaultPadding * 0.7,
+                  //     //   ),
+                  //     //   child: Icon(
+                  //     //     Icons.add_rounded,
+                  //     //     size: 80,
+                  //     //     color: Theme.of(context).primaryColor,
+                  //     //   ),
+                  //     //   decoration: BoxDecoration(
+                  //     //     color: Theme.of(context).cardColor,
+                  //     //     borderRadius: const BorderRadius.all(
+                  //     //       Radius.circular(defaultBorderRaduis),
+                  //     //     ),
+                  //     //   ),
+                  //     // ),
+                  //     Expanded(
+                  //       child: FavouriteMusic(),
+                  //     ),
+                  //   ],
+                  // ),
                 ),
                 SizedBox(height: height * 0.03),
                 Text(

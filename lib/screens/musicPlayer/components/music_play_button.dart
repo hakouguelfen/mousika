@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:music_play/constants.dart';
-import 'package:rive/rive.dart';
 
 class PlayButton extends StatelessWidget {
   final VoidCallback press;
@@ -11,11 +10,12 @@ class PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      heroTag: null,
       onPressed: press,
       label: Text(
         buttonState ? 'Play' : 'Stop',
         style: Theme.of(context).textTheme.headline6!.copyWith(
-              fontSize: 18,
+              fontSize: 20,
               color: orange2,
             ),
       ),
@@ -27,7 +27,7 @@ class PlayButton extends StatelessWidget {
 
   Icon musicStateIcon(bool _buttonState) {
     return _buttonState
-        ? const Icon(Icons.arrow_right_rounded, size: 40)
+        ? const Icon(Icons.arrow_right_rounded, size: 50)
         : const Icon(Icons.pause);
   }
 }

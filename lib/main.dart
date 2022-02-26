@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:music_play/constants.dart';
 import 'package:music_play/screens/Search/search_page.dart';
 
 import 'manager/page_manager.dart';
@@ -51,32 +52,42 @@ class _MyAppState extends State<MyApp> {
       darkTheme: darkThemeData(context),
       home: Scaffold(
         body: screens[selectedIndex],
-        bottomNavigationBar: navBar(),
+        bottomNavigationBar: navBar(context),
       ),
     );
   }
 
-  NavigationBar navBar() {
+  NavigationBar navBar(context) {
     return NavigationBar(
-      destinations: const [
+      destinations: [
         NavigationDestination(
-          icon: Icon(Icons.home_outlined),
-          selectedIcon: Icon(Icons.home_rounded),
+          icon: const Icon(Icons.home_outlined),
+          selectedIcon: Icon(
+            Icons.home_filled,
+            color: Theme.of(context).iconTheme.color,
+          ),
           label: 'Home',
         ),
         NavigationDestination(
-          icon: Icon(Icons.search_outlined),
-          selectedIcon: Icon(Icons.search_rounded),
+          icon: const Icon(Icons.search_outlined),
+          selectedIcon: Icon(
+            Icons.search_rounded,
+            color: Theme.of(context).iconTheme.color,
+          ),
           label: 'Search',
         ),
+        NavigationDestination(
+          icon: const Icon(Icons.settings),
+          selectedIcon: Icon(
+            Icons.settings,
+            color: Theme.of(context).iconTheme.color,
+          ),
+          label: 'Settings',
+        ),
       ],
-      onDestinationSelected: (index) => setState(() {
-        selectedIndex = index;
-      }),
-      height: 70,
+      onDestinationSelected: (index) => setState(() => selectedIndex = index),
       selectedIndex: selectedIndex,
-      labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-      animationDuration: const Duration(seconds: 1),
+      animationDuration: const Duration(milliseconds: 900),
     );
   }
 }

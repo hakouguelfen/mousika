@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/constants.dart';
@@ -5,9 +7,12 @@ import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/notifiers/play_button_notifier.dart';
 import 'package:music_play/screens/musicPlayer/components/music_description.dart';
 import 'package:music_play/screens/musicPlayer/components/music_slider.dart';
+import 'package:music_play/services/convert_song.dart';
 import 'package:music_play/services/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/music_image_cover.dart';
 import 'components/music_play_button.dart';
+import 'services/favourite_music_service.dart';
 
 class MusicPlayer extends StatefulWidget {
   final MediaItem currentSong;
@@ -21,6 +26,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
   static bool isCurrentSong = true;
   final pageManager = getIt<PageManager>();
 
+  final favouriteSongs = getIt<FavouriteSongs>();
+  final convertSong = ConvertSong();
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<bool> _isFavourite;
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +42,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    _isFavourite = _prefs.then((SharedPreferences prefs) {
+      return prefs.getStringList('favouriteSong')!.contains(
+            json.encode(
+              convertSong.toSongMetadata(widget.currentSong),
+            ),
+          );
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -44,6 +63,22 @@ class _MusicPlayerState extends State<MusicPlayer> {
         title: musicTitle(),
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        actions: [
+          FutureBuilder<bool>(
+            future: _isFavourite,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return IconButton(
+                onPressed: () {
+                  snapshot.data
+                      ? favouriteSongs.removeSong(widget.currentSong)
+                      : favouriteSongs.addSong(widget.currentSong);
+                  setState(() {});
+                },
+                icon: favouriteSongStateIcon(snapshot.data ?? false),
+              );
+            },
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -130,6 +165,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             Expanded(
               flex: 1,
               child: FloatingActionButton.large(
+                heroTag: null,
                 onPressed: () => pageManager.next(),
                 child: Icon(
                   Icons.skip_next_rounded,
@@ -141,11 +177,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
           ],
         ),
         // Second Row
-        const SizedBox(height: 15),
+        const SizedBox(height: defaultPadding * 1.3),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FloatingActionButton.large(
+              heroTag: null,
               onPressed: () => pageManager.previous(),
               child: Icon(
                 Icons.skip_previous_rounded,
@@ -160,5 +197,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
         )
       ],
     );
+  }
+
+  Icon favouriteSongStateIcon(bool isFavourite) {
+    return isFavourite
+        ? const Icon(Icons.favorite_rounded, size: 30, color: Colors.green)
+        : const Icon(Icons.favorite_outline, size: 30);
   }
 }

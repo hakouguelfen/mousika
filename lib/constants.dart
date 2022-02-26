@@ -10,6 +10,7 @@ const orange1 = Color(0xFFFFE0B2);
 const orange2 = Color(0xFFFB8C00);
 const blue1 = Color(0xFFBBDEFB);
 const blue2 = Color(0xFF42A5F5);
+const blue3 = Color.fromRGBO(44, 69, 138, 1);
 
 const cardColorLightTheme = Color(0xFFDCE2E0);
 const cardColorDarkTheme = Color(0xFF333349);

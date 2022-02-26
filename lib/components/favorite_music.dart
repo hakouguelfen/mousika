@@ -23,61 +23,69 @@ class FavouriteMusic extends StatelessWidget {
     return ValueListenableBuilder<List<String>>(
       valueListenable: favouriteSongs.favouriteSongs,
       builder: (_, songs, __) {
-        return ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: songs.length,
-          itemBuilder: (context, index) {
-            MediaItem song = convertSong.toMediaItem(jsonDecode(songs[index]));
+        return Row(
+          children: [
+            Text('ff'),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: songs.length,
+                itemBuilder: (context, index) {
+                  MediaItem song =
+                      convertSong.toMediaItem(jsonDecode(songs[index]));
 
-            return InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => MusicPlayer(currentSong: song),
-                  ),
-                );
-              },
-              child: Container(
-                width: 200,
-                height: double.maxFinite,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 0.7,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 0.7,
-                ),
-                child: Column(
-                  children: [
-                    const Expanded(
-                      flex: 3,
-                      child: SizedBox(
-                        width: double.maxFinite,
-                        child: Icon(
-                          Icons.music_note_rounded,
-                          color: Colors.blueAccent,
-                          size: 60,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => MusicPlayer(currentSong: song),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 200,
+                      height: double.maxFinite,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 0.7,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 0.7,
+                      ),
+                      child: Column(
+                        children: [
+                          const Expanded(
+                            flex: 3,
+                            child: SizedBox(
+                              width: double.maxFinite,
+                              child: Icon(
+                                Icons.music_note_rounded,
+                                color: Colors.blueAccent,
+                                size: 60,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SongInfo(
+                              title: song.title,
+                              artist: song.artist ?? '',
+                              size: 0,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(defaultBorderRaduis),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: SongInfo(
-                        title: song.title,
-                        artist: song.artist ?? '',
-                        size: 0,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(defaultBorderRaduis),
-                  ),
-                ),
+                  );
+                },
               ),
-            );
-          },
+            ),
+          ],
         );
       },
     );
