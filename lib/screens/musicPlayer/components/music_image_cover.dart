@@ -21,14 +21,11 @@ class _MusicImageCoverState extends State<MusicImageCover> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
-      child: Hero(
-        tag: 'song${widget.currentSong.title}',
-        child: widget.currentSong.extras!['image'] == null
-            ? const RoundedMusicCard()
-            : musicImage(),
-      ),
+    return Hero(
+      tag: 'song${widget.currentSong.title}',
+      child: widget.currentSong.extras!['image'] == null
+          ? const RoundedMusicCard()
+          : musicImage(),
     );
   }
 

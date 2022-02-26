@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
 import 'package:music_play/screens/Search/search_page.dart';
 
 import 'manager/page_manager.dart';

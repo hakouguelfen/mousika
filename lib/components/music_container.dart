@@ -21,6 +21,8 @@ class MusicContainer extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: () {
+        // hide keyboard programaticlly first to avoid renderflex error
+        FocusScope.of(context).unfocus();
         Navigator.of(context).push(
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 700),

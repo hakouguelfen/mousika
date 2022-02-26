@@ -13,7 +13,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  int currentIndex = 1;
   String searchVal = '';
   final pageManager = getIt<PageManager>();
 
@@ -21,7 +20,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
@@ -38,11 +36,14 @@ class _SearchPageState extends State<SearchPage> {
                     child: ListView.builder(
                       itemCount: playList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        // ||playList[0].artist!.contains(searchVal)
                         if (playList[index]
-                            .title
-                            .toLowerCase()
-                            .contains(searchVal)) {
+                                .title
+                                .toLowerCase()
+                                .contains(searchVal) ||
+                            playList[index]
+                                .artist!
+                                .toLowerCase()
+                                .contains(searchVal)) {
                           return MusicContainer(
                             currentSong: playList[index],
                             containerWidth: 0,
@@ -50,7 +51,6 @@ class _SearchPageState extends State<SearchPage> {
                         } else {
                           return Container();
                         }
-                        // return Text('TAHA GUELFEN');
                       },
                     ),
                   );
@@ -73,13 +73,13 @@ class _SearchPageState extends State<SearchPage> {
       cursorColor: blue3,
       decoration: InputDecoration(
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: blue1),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
             Radius.circular(defaultBorderRaduis),
           ),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: blue1),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
             Radius.circular(defaultBorderRaduis),
           ),
@@ -90,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
         filled: true,
         fillColor: Theme.of(context).cardColor,
-        labelText: 'Search for songs, artists ... ',
+        hintText: 'Search for songs, artists ...',
       ),
     );
   }

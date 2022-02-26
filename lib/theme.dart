@@ -8,9 +8,9 @@ ThemeData lightThemeData(BuildContext context) {
     primaryColor: orange1,
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: appBarTheme,
-    iconTheme: const IconThemeData(color: kContentColorLightTheme),
+    iconTheme: const IconThemeData(color: darkThemeBackgroundColor),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: kContentColorLightTheme),
+        .apply(bodyColor: darkThemeBackgroundColor),
     colorScheme: const ColorScheme.light(
       primary: blue1,
       secondary: blue2,
@@ -52,7 +52,7 @@ ThemeData lightThemeData(BuildContext context) {
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     primaryColor: kPrimaryColor,
-    scaffoldBackgroundColor: kContentColorLightTheme,
+    scaffoldBackgroundColor: darkThemeBackgroundColor,
     appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: blue1),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
@@ -88,9 +88,18 @@ ThemeData darkThemeData(BuildContext context) {
     ),
     navigationBarTheme: NavigationBarThemeData(
       labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+        const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
       ),
+      // iconTheme: MaterialStateProperty.all(
+      //   const IconThemeData(
+      //     color: orange1,
+      //   ),
+      // ),
       indicatorColor: blue3,
+      backgroundColor: black1,
     ),
   );
 }

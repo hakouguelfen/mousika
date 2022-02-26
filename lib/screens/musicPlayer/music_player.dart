@@ -36,7 +36,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   void initState() {
     super.initState();
     if (widget.currentSong != pageManager.currentSongNotifier.value) {
-      isCurrentSong = !isCurrentSong;
+      isCurrentSong = false;
     }
   }
 
@@ -84,15 +84,22 @@ class _MusicPlayerState extends State<MusicPlayer> {
         child: Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              MusicImageCover(
-                currentSong: widget.currentSong,
+              Expanded(
+                flex: 2,
+                child: MusicImageCover(
+                  currentSong: widget.currentSong,
+                ),
               ),
-              MusicDescription(
-                isCurrentSong: isCurrentSong,
-                currentSong: widget.currentSong,
+              Expanded(
+                flex: 1,
+                child: MusicDescription(
+                  isCurrentSong: isCurrentSong,
+                  currentSong: widget.currentSong,
+                ),
               ),
-              musicController(),
+              musicController()
             ],
           ),
         ),
@@ -129,6 +136,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   Column musicController() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // First Row
         Row(
