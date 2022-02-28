@@ -210,6 +210,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
   Icon favouriteSongStateIcon(bool isFavourite) {
     return isFavourite
         ? const Icon(Icons.favorite_rounded, size: 30, color: Colors.green)
-        : const Icon(Icons.favorite_outline, size: 30);
+        : Icon(
+            Icons.favorite_outline_rounded,
+            size: 30,
+            color: Theme.of(context).iconTheme.color,
+          );
   }
 }

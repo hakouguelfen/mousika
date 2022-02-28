@@ -21,7 +21,7 @@ class PageManager {
   // final isShuffleModeEnabledNotifier = ValueNotifier<bool>(false);
 
   // Events: Calls coming from the UI
-  void init() async {
+  Future init() async {
     await _loadPlaylist();
     _listenToChangesInPlaylist();
     _listenToPlaybackState();

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:music_play/error.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'package:music_play/loading.dart';
 import 'package:music_play/screens/Search/search_page.dart';
+import 'package:music_play/screens/setting/setting_page.dart';
 
 import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
@@ -8,9 +13,19 @@ import 'services/service_locator.dart';
 import 'theme.dart';
 
 void main() async {
-  await setupServiceLocator();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  if (await Permission.storage.isDenied) {
+    await Permission.storage.request();
+  }
+
+  if (await Permission.storage.isGranted) {
+    await setupServiceLocator();
+    runApp(const MyApp());
+    return;
+  }
+
+  runApp(const Error());
 }
 
 class MyApp extends StatefulWidget {
@@ -22,16 +37,20 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int selectedIndex = 0;
+  late Future _isLoading;
+
   List screens = const [
     HomePage(),
     SearchPage(),
+    SettingPage(),
   ];
 
   @override
   void initState() {
-    super.initState();
-    getIt<PageManager>().init();
+    _isLoading = getIt<PageManager>().init();
     getIt<FavouriteSongs>().init();
+
+    super.initState();
   }
 
   @override
@@ -47,9 +66,17 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: lightThemeData(context),
       darkTheme: darkThemeData(context),
-      home: Scaffold(
-        body: screens[selectedIndex],
-        bottomNavigationBar: navBar(context),
+      home: FutureBuilder(
+        future: _isLoading,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              body: screens[selectedIndex],
+              bottomNavigationBar: navBar(context),
+            );
+          }
+          return const Loading();
+        },
       ),
     );
   }
