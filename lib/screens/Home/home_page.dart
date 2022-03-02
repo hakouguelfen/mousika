@@ -64,6 +64,39 @@ class _MusicListState extends State<HomePage> {
                   height: height * 0.2,
                   child: FavouriteMusic(),
                 ),
+                // SingleChildScrollView(
+                //   // height: height * 0.2,
+                //   // width: 500,
+                //   // child: FavouriteMusic(),
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         margin: const EdgeInsets.all(10),
+                //         color: Colors.amber,
+                //         width: 200,
+                //         height: 200,
+                //       ),
+                //       SizedBox(
+                //         width: 500,
+                //         height: 200,
+                //         child: ListView.builder(
+                //           itemCount: 3,
+                //           scrollDirection: Axis.horizontal,
+                //           physics: const ClampingScrollPhysics(),
+                //           shrinkWrap: false,
+                //           itemBuilder: (BuildContext context, int index) {
+                //             return Container(
+                //               margin: const EdgeInsets.all(10),
+                //               color: Colors.red,
+                //               width: 200,
+                //               height: 200,
+                //             );
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: height * 0.03),
                 Text(
                   'All Songs',

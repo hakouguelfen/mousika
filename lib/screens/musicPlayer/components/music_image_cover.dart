@@ -1,42 +1,30 @@
+import 'dart:typed_data';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/components/music_round_card.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/services/service_locator.dart';
 
-class MusicImageCover extends StatefulWidget {
-  const MusicImageCover({
-    Key? key,
-    required this.currentSong,
-  }) : super(key: key);
+class MusicImageCover extends StatelessWidget {
+  const MusicImageCover({Key? key, required this.title, required this.image})
+      : super(key: key);
 
-  final MediaItem currentSong;
-
-  @override
-  State<MusicImageCover> createState() => _MusicImageCoverState();
-}
-
-class _MusicImageCoverState extends State<MusicImageCover> {
-  final pageManager = getIt<PageManager>();
+  final String title;
+  final Uint8List? image;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'song${widget.currentSong.title}',
-      child: widget.currentSong.extras!['image'] == null
-          ? const RoundedMusicCard()
-          : musicImage(),
+      tag: 'song$title',
+      child: image == null ? const RoundedMusicCard() : musicImage(context),
     );
   }
 
-  SizedBox musicImage() {
+  SizedBox musicImage(context) {
     return SizedBox(
       width: double.maxFinite,
       height: double.maxFinite,
       child: CircleAvatar(
-        backgroundImage: const AssetImage(
-          'assets/images/arcade.png',
-        ),
+        backgroundImage: MemoryImage(image!),
         backgroundColor: Theme.of(context).cardColor,
       ),
     );

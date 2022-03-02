@@ -1,11 +1,11 @@
-import 'package:ness_audio_metadata/metadata.dart';
+import 'dart:typed_data';
 
 class SongMetadata {
   String? id;
   String? title;
   String? artist;
   String? album;
-  Artwork? image;
+  Uint8List? image;
 
   SongMetadata({
     this.id,

@@ -19,7 +19,7 @@ class ConvertSong {
       title: song.title,
       artist: song.artist ?? '',
       album: song.album,
-      image: song.extras!['image'],
+      image: song.extras['image'],
     );
   }
 }

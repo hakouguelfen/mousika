@@ -42,7 +42,6 @@ class Songs {
       playList.removeAt(index - i);
       i++;
     }
-
     return playList;
   }
 
@@ -68,7 +67,7 @@ class Songs {
                 file.path.split('/').last.replaceAll('.mp3', ''),
             artist: metadata?.artist ?? 'Unknow',
             album: metadata?.album ?? '',
-            extras: {'image': artwork!.exists ? artwork.data() : null},
+            extras: {'image': artwork!.exists ? await artwork.data() : null},
           ),
         );
       }

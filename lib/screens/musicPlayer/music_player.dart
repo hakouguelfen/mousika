@@ -24,6 +24,8 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   static bool isCurrentSong = true;
+  static bool isSongplaying = true;
+
   final pageManager = getIt<PageManager>();
 
   final favouriteSongs = getIt<FavouriteSongs>();
@@ -34,10 +36,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   @override
   void initState() {
-    super.initState();
     if (widget.currentSong != pageManager.currentSongNotifier.value) {
       isCurrentSong = false;
+      isSongplaying = false;
     }
+    super.initState();
   }
 
   @override
@@ -45,7 +48,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
     _isFavourite = _prefs.then((SharedPreferences prefs) {
       return prefs.getStringList('favouriteSong')!.contains(
             json.encode(
-              convertSong.toSongMetadata(widget.currentSong),
+              convertSong.toSongMetadata(
+                isCurrentSong
+                    ? pageManager.currentSongNotifier.value
+                    : widget.currentSong,
+              ),
             ),
           );
     });
@@ -67,15 +74,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
           FutureBuilder<bool>(
             future: _isFavourite,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
-              return IconButton(
-                onPressed: () {
-                  snapshot.data
-                      ? favouriteSongs.removeSong(widget.currentSong)
-                      : favouriteSongs.addSong(widget.currentSong);
-                  setState(() {});
-                },
-                icon: favouriteSongStateIcon(snapshot.data ?? false),
-              );
+              if (snapshot.hasData) {
+                return IconButton(
+                  onPressed: () {
+                    snapshot.data
+                        ? favouriteSongs.removeSong(widget.currentSong)
+                        : favouriteSongs.addSong(widget.currentSong);
+                    setState(() {});
+                  },
+                  icon: favouriteSongStateIcon(snapshot.data ?? false),
+                );
+              }
+              return Container();
             },
           )
         ],
@@ -89,14 +99,19 @@ class _MusicPlayerState extends State<MusicPlayer> {
               Expanded(
                 flex: 2,
                 child: MusicImageCover(
-                  currentSong: widget.currentSong,
+                  title: widget.currentSong.title,
+                  image: widget.currentSong.extras?['image'],
                 ),
               ),
               Expanded(
                 flex: 1,
-                child: MusicDescription(
-                  isCurrentSong: isCurrentSong,
-                  currentSong: widget.currentSong,
+                child: ValueListenableBuilder<MediaItem>(
+                  valueListenable: pageManager.currentSongNotifier,
+                  builder: (_, song, __) {
+                    return MusicDescription(
+                      currentSong: isCurrentSong ? song : widget.currentSong,
+                    );
+                  },
                 ),
               ),
               musicController()
@@ -113,11 +128,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             valueListenable: pageManager.playButtonNotifier,
             builder: (_, buttonState, __) {
               return Text(
-                buttonState == ButtonState.loading
-                    ? ''
-                    : buttonState == ButtonState.paused
-                        ? 'Stopped'
-                        : 'Playing now',
+                buttonState == ButtonState.paused ? 'Stopped' : 'Playing now',
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.w300,
@@ -147,24 +158,21 @@ class _MusicPlayerState extends State<MusicPlayer> {
               child: ValueListenableBuilder<ButtonState>(
                   valueListenable: pageManager.playButtonNotifier,
                   builder: (_, buttonState, __) {
-                    return isCurrentSong
+                    return isSongplaying
                         ? PlayButton(
                             press: () {
                               buttonState == ButtonState.paused
                                   ? pageManager.play()
                                   : pageManager.pause();
                             },
-                            buttonState: buttonState == ButtonState.paused ||
-                                buttonState == ButtonState.loading,
+                            buttonState: buttonState == ButtonState.paused,
                           )
                         : PlayButton(
                             press: () {
-                              setState(() {
-                                isCurrentSong = !isCurrentSong;
-                                pageManager
-                                    .playSpecificSong(widget.currentSong);
-                                pageManager.play();
-                              });
+                              isSongplaying = !isSongplaying;
+                              pageManager.playSpecificSong(widget.currentSong);
+                              pageManager.play();
+                              setState(() {});
                             },
                             buttonState: true,
                           );
@@ -174,7 +182,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
               flex: 1,
               child: FloatingActionButton.large(
                 heroTag: null,
-                onPressed: () => pageManager.next(),
+                onPressed: () {
+                  isCurrentSong = true;
+                  pageManager.next();
+                  setState(() {});
+                },
                 child: Icon(
                   Icons.skip_next_rounded,
                   size: Theme.of(context).iconTheme.size,
@@ -191,7 +203,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
           children: [
             FloatingActionButton.large(
               heroTag: null,
-              onPressed: () => pageManager.previous(),
+              onPressed: () {
+                isCurrentSong = true;
+                pageManager.previous();
+                setState(() {});
+              },
               child: Icon(
                 Icons.skip_previous_rounded,
                 size: Theme.of(context).iconTheme.size,
@@ -199,7 +215,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
               elevation: 0,
             ),
             Expanded(
-              child: MusicSlider(isCurrentSong: isCurrentSong),
+              child: MusicSlider(isCurrentSong: isSongplaying),
             ),
           ],
         )

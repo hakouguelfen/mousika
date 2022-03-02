@@ -69,7 +69,7 @@ class MusicContainer extends StatelessWidget {
                           size: 40,
                           opacity: 0.0,
                         )
-                      : musicImage(),
+                      : musicImage(currentSong.extras!['image']),
                 ),
                 const SizedBox(width: defaultPadding * 0.7),
                 Flexible(
@@ -98,15 +98,15 @@ class MusicContainer extends StatelessWidget {
     );
   }
 
-  Container musicImage() {
+  Container musicImage(image) {
     return Container(
       width: 80,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/arcade.png'),
+          image: MemoryImage(image),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
         ),

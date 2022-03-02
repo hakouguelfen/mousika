@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/music_card.dart';
 import 'package:music_play/components/song_info.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
@@ -20,15 +21,27 @@ class FavouriteMusic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<List<String>>(
-      valueListenable: favouriteSongs.favouriteSongs,
-      builder: (_, songs, __) {
-        return Row(
-          children: [
-            Text('ff'),
-            Expanded(
-              child: ListView.builder(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {},
+            child: const MusicCard(
+              width: 200,
+              height: double.maxFinite,
+              icon: Icons.add_rounded,
+              size: 70,
+              opacity: 1,
+            ),
+          ),
+          ValueListenableBuilder<List<String>>(
+            valueListenable: favouriteSongs.favouriteSongs,
+            builder: (_, songs, __) {
+              return ListView.builder(
                 scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: songs.length,
                 itemBuilder: (context, index) {
                   MediaItem song =
@@ -83,11 +96,11 @@ class FavouriteMusic extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-            ),
-          ],
-        );
-      },
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

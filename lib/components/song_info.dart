@@ -21,18 +21,33 @@ class SongInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                fontSize: fontSize,
-              ),
+        SizedBox(
+          width: double.maxFinite,
+          child: SingleChildScrollView(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontSize: fontSize,
+                  ),
+            ),
+            scrollDirection: Axis.horizontal,
+          ),
         ),
         SizedBox(height: height * size),
-        Text(
-          artist,
-          style: TextStyle(
-            color:
-                Theme.of(context).textTheme.bodyText2!.color!.withOpacity(0.75),
+        SizedBox(
+          width: double.maxFinite,
+          child: SingleChildScrollView(
+            child: Text(
+              artist,
+              style: TextStyle(
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .color!
+                    .withOpacity(0.75),
+              ),
+            ),
+            scrollDirection: Axis.horizontal,
           ),
         ),
       ],

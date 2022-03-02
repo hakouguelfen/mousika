@@ -23,7 +23,7 @@ class MusicCard extends StatelessWidget {
       width: width,
       height: double.maxFinite,
       child: Icon(
-        Icons.music_note_rounded,
+        icon,
         color: Colors.blueAccent,
         size: size,
       ),
