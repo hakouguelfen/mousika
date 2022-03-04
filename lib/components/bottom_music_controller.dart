@@ -10,7 +10,7 @@ class BottomMusicController extends StatelessWidget {
       width: 80,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/arcade.png'),
+          image: AssetImage('assets/icons/logo.png'),
           fit: BoxFit.fill,
         ),
         borderRadius: BorderRadius.only(

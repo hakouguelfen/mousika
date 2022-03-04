@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:music_play/loading.dart';
 import 'package:music_play/screens/Search/search_page.dart';
-import 'package:music_play/screens/setting/setting_page.dart';
+// import 'package:music_play/screens/setting/setting_page.dart';
 
 import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   List screens = const [
     HomePage(),
     SearchPage(),
-    SettingPage(),
+    // SettingPage(),
   ];
 
   @override
@@ -100,14 +100,16 @@ class _MyAppState extends State<MyApp> {
           ),
           label: 'Search',
         ),
-        NavigationDestination(
-          icon: const Icon(Icons.settings),
-          selectedIcon: Icon(
-            Icons.settings,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          label: 'Settings',
-        ),
+        // NavigationDestination(
+        //   icon: const Icon(
+        //     Icons.settings,
+        //   ),
+        //   selectedIcon: Icon(
+        //     Icons.settings,
+        //     color: Theme.of(context).iconTheme.color,
+        //   ),
+        //   label: 'Settings',
+        // ),
       ],
       onDestinationSelected: (index) => setState(() => selectedIndex = index),
       selectedIndex: selectedIndex,

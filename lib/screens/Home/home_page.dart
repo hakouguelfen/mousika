@@ -29,20 +29,13 @@ class _MusicListState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: width * 0.02),
-            child: GestureDetector(
-              onTap: () {
-                // pageManager.add();
-              },
-              child: Icon(
-                Icons.nightlight,
-                color: Theme.of(context).iconTheme.color,
-              ),
-            ),
+        title: const Text('Music'),
+        leading: const Padding(
+          padding: EdgeInsets.all(defaultPadding * 0.5),
+          child: Image(
+            image: AssetImage('assets/icons/logo.png'),
           ),
-        ],
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -64,39 +57,6 @@ class _MusicListState extends State<HomePage> {
                   height: height * 0.2,
                   child: FavouriteMusic(),
                 ),
-                // SingleChildScrollView(
-                //   // height: height * 0.2,
-                //   // width: 500,
-                //   // child: FavouriteMusic(),
-                //   child: Row(
-                //     children: [
-                //       Container(
-                //         margin: const EdgeInsets.all(10),
-                //         color: Colors.amber,
-                //         width: 200,
-                //         height: 200,
-                //       ),
-                //       SizedBox(
-                //         width: 500,
-                //         height: 200,
-                //         child: ListView.builder(
-                //           itemCount: 3,
-                //           scrollDirection: Axis.horizontal,
-                //           physics: const ClampingScrollPhysics(),
-                //           shrinkWrap: false,
-                //           itemBuilder: (BuildContext context, int index) {
-                //             return Container(
-                //               margin: const EdgeInsets.all(10),
-                //               color: Colors.red,
-                //               width: 200,
-                //               height: 200,
-                //             );
-                //           },
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 SizedBox(height: height * 0.03),
                 Text(
                   'All Songs',

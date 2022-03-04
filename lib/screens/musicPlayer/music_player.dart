@@ -46,9 +46,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
   @override
   Widget build(BuildContext context) {
     _isFavourite = _prefs.then((SharedPreferences prefs) {
+      // print(pageManager.currentSongNotifier.value);
       return prefs.getStringList('favouriteSong')!.contains(
             json.encode(
               convertSong.toSongMetadata(
+                // pageManager.currentSongNotifier.value,
                 isCurrentSong
                     ? pageManager.currentSongNotifier.value
                     : widget.currentSong,
@@ -87,7 +89,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
               }
               return Container();
             },
-          )
+          ),
         ],
       ),
       body: SafeArea(
@@ -185,6 +187,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 onPressed: () {
                   isCurrentSong = true;
                   pageManager.next();
+
                   setState(() {});
                 },
                 child: Icon(

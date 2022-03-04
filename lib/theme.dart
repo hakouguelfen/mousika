@@ -93,12 +93,14 @@ ThemeData darkThemeData(BuildContext context) {
           fontWeight: FontWeight.w400,
         ),
       ),
-      // iconTheme: MaterialStateProperty.all(
-      //   const IconThemeData(
-      //     color: orange1,
-      //   ),
-      // ),
+      iconTheme: MaterialStateProperty.all(
+        const IconThemeData(
+          // color: orange1,
+          size: 30,
+        ),
+      ),
       indicatorColor: blue3,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       backgroundColor: black1,
     ),
   );
