@@ -25,11 +25,12 @@ class AudioPlayerHandler extends BaseAudioHandler {
   }
 
   Future<void> _loadEmptyPlaylist() async {
-    try {
-      await _player.setAudioSource(_playlist);
-    } catch (e) {
-      print("Error: $e");
-    }
+    await _player.setAudioSource(_playlist);
+    // try {
+    //   await _player.setAudioSource(_playlist);
+    // } catch (e) {
+    //   print("Error: $e");
+    // }
   }
 
   void _notifyAudioHandlerAboutPlaybackEvents() {

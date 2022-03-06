@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/components/music_round_card.dart';
 

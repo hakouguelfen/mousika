@@ -45,32 +45,41 @@ class Songs {
     return playList;
   }
 
-  travarseDeviceStorage(List folders) async {
+  travarseDeviceStorage(List<FileSystemEntity> folders) async {
     List _songs = [];
 
     if (folders.isEmpty) {
       return _songs;
     }
+    FileSystemEntity file = folders.removeLast();
 
-    Directory currentFolder = folders.removeLast();
+    bool isFile = file is File;
+    String fileName = file.path.split('/').last;
 
-    for (FileSystemEntity file in currentFolder.listSync()) {
-      // if (file is File) {}
-      if (file.path.endsWith('.mp3')) {
-        final metadata = await parser.parse(file.path);
-        final artwork = await metadata?.artwork;
+    // loop through subfolders of this folder
+    // !EXCEPTIONS: don't look to hidden folders, ANDROID or DCIM
+    // Because they are big folder and it'll take alot of time to calculate
+    if (!isFile &&
+        !['Android', 'DCIM'].contains(fileName) &&
+        !fileName.startsWith('.')) {
+      await travarseDeviceStorage(Directory(file.path).listSync());
+    }
 
-        _songs.add(
-          MediaItem(
-            id: metadata?.path ?? '',
-            title: metadata?.title ??
-                file.path.split('/').last.replaceAll('.mp3', ''),
-            artist: metadata?.artist ?? 'Unknow',
-            album: metadata?.album ?? '',
-            extras: {'image': artwork!.exists ? await artwork.data() : null},
-          ),
-        );
-      }
+    // file: check if it's a song then save it
+    if (file.path.endsWith('.mp3')) {
+      final metadata = await parser.parse(file.path);
+      final artwork = await metadata?.artwork;
+
+      _songs.add(
+        MediaItem(
+          id: metadata?.path ?? '',
+          title: metadata?.title ??
+              file.path.split('/').last.replaceAll('.mp3', ''),
+          artist: metadata?.artist ?? 'Unknow',
+          album: metadata?.album ?? '',
+          extras: {'image': artwork!.exists ? await artwork.data() : null},
+        ),
+      );
     }
 
     await travarseDeviceStorage(folders);

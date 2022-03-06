@@ -1,7 +1,8 @@
 name: music_play
-description: A new Flutter project.
+description: A music player app.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
+repository: "https://github.com/hakouklvn/musicPlayer.git"
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
