@@ -67,6 +67,7 @@ class Songs {
 
     // file: check if it's a song then save it
     if (file.path.endsWith('.mp3')) {
+      // change the metadata parser
       final metadata = await parser.parse(file.path);
       final artwork = await metadata?.artwork;
 

@@ -4,8 +4,7 @@ import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/services/service_locator.dart';
 
 class MusicSlider extends StatefulWidget {
-  const MusicSlider({Key? key, required this.isCurrentSong}) : super(key: key);
-  final bool isCurrentSong;
+  const MusicSlider({Key? key}) : super(key: key);
 
   @override
   State<MusicSlider> createState() => _MusicSliderState();
@@ -19,28 +18,18 @@ class _MusicSliderState extends State<MusicSlider> {
     return ValueListenableBuilder<ProgressBarState>(
       valueListenable: pageManager.progressNotifier,
       builder: (_, dynamic progressVal, __) {
-        return widget.isCurrentSong
-            ? sliderProgress(
-                progressVal.current.inSeconds.toDouble(),
-                progressVal.total.inSeconds.toDouble(),
-                (double value) {
-                  setState(() {
-                    Duration position = Duration(seconds: value.toInt());
-                    pageManager.seek(position);
-                  });
-                },
-              )
-            : sliderProgress(0.0, 0.0, (double val) {});
+        return Slider(
+          min: 0.0,
+          value: progressVal.current.inSeconds.toDouble(),
+          max: progressVal.total.inSeconds.toDouble(),
+          onChanged: (double value) {
+            setState(() {
+              Duration position = Duration(seconds: value.toInt());
+              pageManager.seek(position);
+            });
+          },
+        );
       },
     );
   }
-}
-
-sliderProgress(current, maxVal, changeSlideVal) {
-  return Slider(
-    min: 0.0,
-    value: current,
-    max: maxVal,
-    onChanged: changeSlideVal,
-  );
 }

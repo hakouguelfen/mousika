@@ -5,8 +5,8 @@ Future<AudioHandler> initAudioService() async {
   return await AudioService.init(
     builder: () => AudioPlayerHandler(),
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.mycompany.myapp.audio',
-      androidNotificationChannelName: 'Audio Service Demo',
+      androidNotificationChannelId: 'guelfen.hakoudev.music_play.audio',
+      androidNotificationChannelName: 'music_play',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
     ),
@@ -26,11 +26,6 @@ class AudioPlayerHandler extends BaseAudioHandler {
 
   Future<void> _loadEmptyPlaylist() async {
     await _player.setAudioSource(_playlist);
-    // try {
-    //   await _player.setAudioSource(_playlist);
-    // } catch (e) {
-    //   print("Error: $e");
-    // }
   }
 
   void _notifyAudioHandlerAboutPlaybackEvents() {
