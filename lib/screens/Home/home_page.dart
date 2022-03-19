@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/bottom_music_controller.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/services/service_locator.dart';
@@ -108,6 +109,7 @@ class _MusicListState extends State<HomePage> {
           ),
         ),
       ),
+      // bottomNavigationBar: BottomMusicController(),
     );
   }
 }

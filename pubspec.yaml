@@ -12,10 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  path_provider: ^2.0.8
   permission_handler: ^8.3.0
   google_fonts: ^2.2.0
-  ness_audio_metadata: ^1.0.2
   audio_service: ^0.18.3
   just_audio: ^0.9.18
   get_it: ^7.2.0
@@ -23,6 +21,7 @@ dependencies:
   shared_preferences: ^2.0.13
   provider: ^6.0.2
   app_settings: ^4.1.1
+  on_audio_query: ^2.6.0
 
 dev_dependencies:
   flutter_test:
