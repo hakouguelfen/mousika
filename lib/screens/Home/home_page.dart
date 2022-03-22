@@ -67,40 +67,19 @@ class _MusicListState extends State<HomePage> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: height * 0.03),
-
-                //TODO: This should be fixed (Nested ValueListenableBuilder)
                 ValueListenableBuilder<List<MediaItem>>(
                   valueListenable: pageManager.playlistNotifier,
                   builder: (_, playlist, __) {
-                    // listen to progress bar changes
-                    return ValueListenableBuilder<ProgressBarState>(
-                      valueListenable: pageManager.progressNotifier,
-                      builder: (_, progressVal, __) {
-                        // listen for current playing song
-                        return ValueListenableBuilder<MediaItem>(
-                          valueListenable: pageManager.currentSongNotifier,
-                          builder: (_, song, __) {
-                            return ListView.builder(
-                              itemCount: playlist.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final psongProgess =
-                                    progressVal.current.inSeconds.toDouble() *
-                                        (width - defaultPadding) /
-                                        progressVal.total.inSeconds.toDouble();
-
-                                return MusicContainer(
-                                  containerWidth: playlist[index] == song
-                                      ? psongProgess
-                                      : 0,
-                                  currentSong: playlist[index],
-                                );
-                              },
-                              physics: const ClampingScrollPhysics(),
-                              shrinkWrap: true,
-                            );
-                          },
+                    return ListView.builder(
+                      itemCount: playlist.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return MusicContainer(
+                          containerWidth: 0,
+                          currentSong: playlist[index],
                         );
                       },
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
                     );
                   },
                 ),
@@ -110,6 +89,12 @@ class _MusicListState extends State<HomePage> {
         ),
       ),
       // bottomNavigationBar: BottomMusicController(),
+      bottomNavigationBar: ValueListenableBuilder<MediaItem>(
+        valueListenable: pageManager.currentSongNotifier,
+        builder: (_, song, __) {
+          return BottomMusicController(currentSong: song);
+        },
+      ),
     );
   }
 }
