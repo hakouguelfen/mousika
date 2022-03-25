@@ -1,114 +1,145 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:music_play/components/music_card.dart';
+import 'package:music_play/components/song_info.dart';
+import 'package:music_play/constants.dart';
+import 'package:music_play/notifiers/progressbar_notifier.dart';
+import 'package:music_play/screens/musicPlayer/music_player.dart';
 
-import '../constants.dart';
+import '../manager/page_manager.dart';
+import '../notifiers/play_button_notifier.dart';
+import '../services/service_locator.dart';
 
 class BottomMusicController extends StatelessWidget {
-  const BottomMusicController({Key? key}) : super(key: key);
-
-  Container musicImage() {
-    return Container(
-      width: 80,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/icons/logo.png'),
-          fit: BoxFit.fill,
-        ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-        ),
-      ),
-    );
-  }
+  final MediaItem currentSong;
+  const BottomMusicController({Key? key, required this.currentSong})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final pageManager = getIt<PageManager>();
 
-    return Container(
-      width: double.maxFinite,
-      height: height * 0.08,
-      margin: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Row(
+    return InkWell(
+      borderRadius: BorderRadius.circular(10),
+      onTap: () {
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 700),
+            pageBuilder: (context, animation, _) => MusicPlayer(
+              currentSong: currentSong,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: double.maxFinite,
+        height: height * 0.08,
+        margin: const EdgeInsets.only(
+          left: defaultPadding * 0.5,
+          right: defaultPadding * 0.5,
+          top: defaultPadding,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Stack(
+          children: [
+            ValueListenableBuilder<ProgressBarState>(
+              valueListenable: pageManager.progressNotifier,
+              builder: (_, progressVal, __) {
+                final psongProgess = progressVal.current.inSeconds.toDouble() *
+                    (width - defaultPadding) /
+                    progressVal.total.inSeconds.toDouble();
+
+                return AnimatedContainer(
+                  constraints: const BoxConstraints(
+                    maxWidth: double.maxFinite,
+                    minWidth: 0.0,
+                  ),
+                  width: psongProgess,
+                  height: height * 0.1,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn,
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.4),
+                );
+              },
+            ),
+            Row(
               children: [
                 Hero(
-                  tag: 'songColor',
+                  tag: 'song${currentSong.title}',
                   transitionOnUserGestures: true,
                   createRectTween: (begin, end) {
                     return MaterialRectCenterArcTween(begin: begin, end: end);
                   },
-                  child: musicImage(),
+                  child: currentSong.extras == null
+                      ? const MusicCard(
+                          width: 80,
+                          height: double.maxFinite,
+                          icon: Icons.music_note_rounded,
+                          size: 40,
+                          opacity: 0.0,
+                        )
+                      : musicImage(currentSong.extras!['image']),
                 ),
                 const SizedBox(width: defaultPadding * 0.7),
                 Flexible(
                   flex: 3,
                   fit: FlexFit.tight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Color out music',
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              fontSize: 18,
-                            ),
-                      ),
-                      SizedBox(height: height * 0.01),
-                      Text(
-                        'The Beatles',
-                        style: TextStyle(
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .color!
-                              .withOpacity(0.65),
+                  child: SongInfo(
+                    title: currentSong.title,
+                    artist: currentSong.artist ?? '',
+                    size: 0.01,
+                    fontSize: 18,
+                  ),
+                ),
+                ValueListenableBuilder<ButtonState>(
+                  valueListenable: pageManager.playButtonNotifier,
+                  builder: (_, buttonState, __) {
+                    return Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: InkWell(
+                        onTap: () {
+                          buttonState == ButtonState.paused
+                              ? pageManager.play()
+                              : pageManager.pause();
+                        },
+                        child: Icon(
+                          buttonState == ButtonState.paused
+                              ? Icons.play_arrow_rounded
+                              : Icons.pause,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Icon(
-                    Icons.favorite_outline_rounded,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Icon(
-                    Icons.play_arrow_rounded,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
-          ),
-          Container(
-            width: double.maxFinite,
-            height: 2,
-            padding:
-                const EdgeInsets.symmetric(horizontal: defaultPadding * 0.2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const LinearProgressIndicator(
-              value: 50,
-              backgroundColor: Colors.red,
-              semanticsLabel: 'progess',
-            ),
-          ),
-        ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container musicImage(image) {
+    return Container(
+      width: 80,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: MemoryImage(image),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+        ),
       ),
     );
   }

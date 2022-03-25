@@ -45,6 +45,11 @@ ThemeData lightThemeData(BuildContext context) {
         const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
       ),
       indicatorColor: blue1,
+      iconTheme: MaterialStateProperty.all(
+        const IconThemeData(size: 30),
+      ),
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+      backgroundColor: white1,
     ),
   );
 }
@@ -88,16 +93,10 @@ ThemeData darkThemeData(BuildContext context) {
     ),
     navigationBarTheme: NavigationBarThemeData(
       labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
       ),
       iconTheme: MaterialStateProperty.all(
-        const IconThemeData(
-          // color: orange1,
-          size: 30,
-        ),
+        const IconThemeData(size: 30),
       ),
       indicatorColor: blue3,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,

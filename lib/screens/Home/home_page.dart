@@ -2,7 +2,6 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/components/bottom_music_controller.dart';
 import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/services/service_locator.dart';
 
 import 'package:music_play/constants.dart';
@@ -22,7 +21,6 @@ class _MusicListState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     final pageManager = getIt<PageManager>();
 
@@ -67,6 +65,7 @@ class _MusicListState extends State<HomePage> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: height * 0.03),
+                // List all songs
                 ValueListenableBuilder<List<MediaItem>>(
                   valueListenable: pageManager.playlistNotifier,
                   builder: (_, playlist, __) {
@@ -74,8 +73,8 @@ class _MusicListState extends State<HomePage> {
                       itemCount: playlist.length,
                       itemBuilder: (BuildContext context, int index) {
                         return MusicContainer(
-                          containerWidth: 0,
                           currentSong: playlist[index],
+                          gotoNextPage: false,
                         );
                       },
                       physics: const ClampingScrollPhysics(),
@@ -88,7 +87,6 @@ class _MusicListState extends State<HomePage> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomMusicController(),
       bottomNavigationBar: ValueListenableBuilder<MediaItem>(
         valueListenable: pageManager.currentSongNotifier,
         builder: (_, song, __) {

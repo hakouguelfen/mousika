@@ -15,6 +15,7 @@ class Songs {
     for (var song in songs) {
       Uint8List? image =
           await _audioQuery.queryArtwork(song.id, ArtworkType.AUDIO);
+
       playList.add(
         MediaItem(
           id: song.data,
@@ -25,19 +26,6 @@ class Songs {
         ),
       );
     }
-
-    // List titles = [];
-    // List indexs = [];
-
-    // playList.asMap().forEach((index, song) {
-    //   !titles.contains(song.title) ? titles.add(song.title) : indexs.add(index);
-    // });
-
-    // int i = 0;
-    // for (var index in indexs) {
-    //   playList.removeAt(index - i);
-    //   i++;
-    // }
     return playList;
   }
 }

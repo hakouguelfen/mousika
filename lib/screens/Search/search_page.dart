@@ -46,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
                                 .contains(searchVal)) {
                           return MusicContainer(
                             currentSong: playList[index],
-                            containerWidth: 0,
+                            gotoNextPage: true,
                           );
                         } else {
                           return Container();
@@ -66,7 +66,6 @@ class _SearchPageState extends State<SearchPage> {
   TextField searchTextField(BuildContext context) {
     return TextField(
       onChanged: (val) => setState(() => searchVal = val),
-      // onSubmitted: (val) => print(searchVal),
       textInputAction: TextInputAction.search,
       keyboardType: TextInputType.text,
       autofocus: true,
