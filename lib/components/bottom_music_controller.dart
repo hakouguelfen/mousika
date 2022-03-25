@@ -77,7 +77,8 @@ class BottomMusicController extends StatelessWidget {
                   createRectTween: (begin, end) {
                     return MaterialRectCenterArcTween(begin: begin, end: end);
                   },
-                  child: currentSong.extras == null
+                  child: currentSong.extras == null ||
+                          currentSong.extras!['image'] == null
                       ? const MusicCard(
                           width: 80,
                           height: double.maxFinite,
