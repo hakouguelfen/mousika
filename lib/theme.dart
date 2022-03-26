@@ -54,6 +54,23 @@ ThemeData lightThemeData(BuildContext context) {
   );
 }
 
+class CustomTrackShape extends RoundedRectSliderTrackShape {
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double? trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop =
+        offset.dy + (parentBox.size.height - trackHeight!) / 2;
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+  }
+}
+
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     primaryColor: kPrimaryColor,
@@ -68,6 +85,7 @@ ThemeData darkThemeData(BuildContext context) {
       error: kErrorColor,
     ),
     sliderTheme: SliderThemeData(
+      trackShape: CustomTrackShape(),
       trackHeight: 12,
       thumbShape: const RoundSliderThumbShape(
         enabledThumbRadius: 15,

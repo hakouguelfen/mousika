@@ -154,9 +154,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
               flex: 1,
               child: FloatingActionButton.large(
                 heroTag: null,
-                onPressed: () {
-                  pageManager.next();
-                },
+                onPressed: () => pageManager.next(),
                 child: Icon(
                   Icons.skip_next_rounded,
                   size: Theme.of(context).iconTheme.size,
@@ -173,9 +171,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           children: [
             FloatingActionButton.large(
               heroTag: null,
-              onPressed: () {
-                pageManager.previous();
-              },
+              onPressed: () => pageManager.previous(),
               child: Icon(
                 Icons.skip_previous_rounded,
                 size: Theme.of(context).iconTheme.size,
@@ -183,7 +179,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
               elevation: 0,
             ),
             const Expanded(
-              child: MusicSlider(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+                child: MusicSlider(),
+              ),
             ),
           ],
         )
