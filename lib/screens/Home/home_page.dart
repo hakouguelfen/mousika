@@ -34,6 +34,7 @@ class _MusicListState extends State<HomePage> {
             floating: true,
             expandedHeight: 160.0,
             elevation: 0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: Text(
               'Mousika',
               style:
@@ -100,9 +101,14 @@ class _MusicListState extends State<HomePage> {
                 return ValueListenableBuilder<List<MediaItem>>(
                   valueListenable: pageManager.playlistNotifier,
                   builder: (_, playlist, __) {
-                    return MusicContainer(
-                      currentSong: playlist[index],
-                      gotoNextPage: false,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 0.5,
+                      ),
+                      child: MusicContainer(
+                        currentSong: playlist[index],
+                        gotoNextPage: false,
+                      ),
                     );
                   },
                 );

@@ -61,6 +61,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
         ),
         title: musicTitle(),
         centerTitle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
           FutureBuilder<bool>(
             future: _isFavourite,

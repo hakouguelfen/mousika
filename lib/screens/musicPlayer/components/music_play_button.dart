@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
 
 class PlayButton extends StatelessWidget {
   final VoidCallback press;
@@ -16,12 +15,12 @@ class PlayButton extends StatelessWidget {
         buttonState ? 'Play' : 'Stop',
         style: Theme.of(context).textTheme.headline6!.copyWith(
               fontSize: 20,
-              color: blue1,
+              color: Theme.of(context).colorScheme.secondary,
             ),
       ),
       icon: musicStateIcon(buttonState),
       backgroundColor: Theme.of(context).cardColor,
-      foregroundColor: blue1,
+      foregroundColor: Theme.of(context).colorScheme.secondary,
     );
   }
 

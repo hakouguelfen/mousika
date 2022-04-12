@@ -5,8 +5,8 @@ import 'constants.dart';
 
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
-    primaryColor: orange1,
-    scaffoldBackgroundColor: Colors.white,
+    primaryColor: blue2,
+    scaffoldBackgroundColor: lightThemeBackgoundColor,
     appBarTheme: appBarTheme,
     iconTheme: const IconThemeData(color: darkThemeBackgroundColor),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
@@ -14,17 +14,17 @@ ThemeData lightThemeData(BuildContext context) {
     colorScheme: const ColorScheme.light(
       primary: cardColorLightTheme,
       secondary: blue2,
-      error: kErrorColor,
     ),
     sliderTheme: SliderThemeData(
+      trackShape: CustomTrackShape(),
       trackHeight: 12,
       thumbShape: const RoundSliderThumbShape(
         enabledThumbRadius: 15,
       ),
-      thumbColor: orange1,
-      activeTrackColor: orange1,
+      thumbColor: blue2,
+      activeTrackColor: blue1,
       inactiveTrackColor: cardColorLightTheme,
-      overlayColor: orange1.withOpacity(0.2),
+      overlayColor: blue1.withOpacity(0.2),
     ),
     cardColor: cardColorLightTheme,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -78,7 +78,7 @@ ThemeData darkThemeData(BuildContext context) {
     scaffoldBackgroundColor: darkThemeBackgroundColor,
     iconTheme: const IconThemeData(color: black3),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: kContentColorDarkTheme),
+        .apply(bodyColor: lightThemeBackgoundColor),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: cardColorDarkTheme,
       secondary: blue1,

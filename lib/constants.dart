@@ -9,7 +9,7 @@ const cardColorDarkTheme = black2;
 // *****************************************
 // **************** LIGHT ******************
 // *****************************************
-const kContentColorDarkTheme = white1;
+const lightThemeBackgoundColor = white1;
 const cardColorLightTheme = white2;
 
 // *****************************************
