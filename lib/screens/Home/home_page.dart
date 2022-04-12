@@ -23,69 +23,94 @@ class _MusicListState extends State<HomePage> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     final pageManager = getIt<PageManager>();
+    List<String> songs_types = ['artists', 'albums', 'genre'];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text('Music'),
-        leading: const Padding(
-          padding: EdgeInsets.all(defaultPadding * 0.5),
-          child: Image(
-            image: AssetImage('assets/icons/logo.png'),
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(defaultPadding * 0.5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: height * 0.02),
-                Text(
-                  'My PlayLists',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(fontWeight: FontWeight.bold),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            snap: false,
+            floating: true,
+            expandedHeight: 160.0,
+            elevation: 0,
+            title: Text(
+              'Mousika',
+              style:
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
+            ),
+            leading: const Padding(
+              padding: EdgeInsets.all(defaultPadding * 0.5),
+              child: Image(image: AssetImage('assets/icons/logo.png')),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              background: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 40,
+                      margin: const EdgeInsets.only(top: 100, left: 10),
+                      child: const Center(
+                        child: Text(
+                          "all songs",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 140,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 100,
+                            margin: const EdgeInsets.only(top: 100, left: 10),
+                            child: Center(
+                              child: Text(songs_types[index]),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer,
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: songs_types.length,
+                        scrollDirection: Axis.horizontal,
+                        physics: const ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: height * 0.03),
-                SizedBox(
-                  height: height * 0.2,
-                  child: FavouriteMusic(),
-                ),
-                SizedBox(height: height * 0.03),
-                Text(
-                  'All Songs',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: height * 0.03),
-                // List all songs
-                ValueListenableBuilder<List<MediaItem>>(
-                  valueListenable: pageManager.playlistNotifier,
-                  builder: (_, playlist, __) {
-                    return ListView.builder(
-                      itemCount: playlist.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return MusicContainer(
-                          currentSong: playlist[index],
-                          gotoNextPage: false,
-                        );
-                      },
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                    );
-                  },
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return ValueListenableBuilder<List<MediaItem>>(
+                  valueListenable: pageManager.playlistNotifier,
+                  builder: (_, playlist, __) {
+                    return MusicContainer(
+                      currentSong: playlist[index],
+                      gotoNextPage: false,
+                    );
+                  },
+                );
+              },
+              childCount: 2,
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: ValueListenableBuilder<MediaItem>(
         valueListenable: pageManager.currentSongNotifier,

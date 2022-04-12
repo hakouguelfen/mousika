@@ -61,7 +61,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
         ),
         title: musicTitle(),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
         actions: [
           FutureBuilder<bool>(
             future: _isFavourite,

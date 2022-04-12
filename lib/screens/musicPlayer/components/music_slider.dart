@@ -47,10 +47,13 @@ class _MusicSliderState extends State<MusicSlider> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(_getTimeString(progressVal.current)),
+                Text(
+                  _getTimeString(progressVal.current),
+                  style: const TextStyle(color: Colors.amber),
+                ),
                 Text(_getTimeString(progressVal.total)),
               ],
-            )
+            ),
           ],
         );
       },

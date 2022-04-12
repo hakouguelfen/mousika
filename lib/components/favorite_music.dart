@@ -26,7 +26,37 @@ class FavouriteMusic extends StatelessWidget {
       child: Row(
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                constraints: const BoxConstraints(
+                  maxHeight: 100,
+                  minHeight: 50,
+                ),
+                isScrollControlled: true,
+                builder: (context) => Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 5,
+                        margin: const EdgeInsets.all(defaultPadding * 0.5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Text('hakou'),
+                    ],
+                  ),
+                ),
+              );
+            },
             child: const MusicCard(
               width: 200,
               height: double.maxFinite,
