@@ -74,7 +74,7 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     appBarTheme: appBarTheme,
-    primaryColor: kPrimaryColor,
+    primaryColor: blue1,
     scaffoldBackgroundColor: darkThemeBackgroundColor,
     iconTheme: const IconThemeData(color: black3),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
@@ -90,10 +90,10 @@ ThemeData darkThemeData(BuildContext context) {
       thumbShape: const RoundSliderThumbShape(
         enabledThumbRadius: 15,
       ),
-      thumbColor: orange1,
-      activeTrackColor: orange1,
+      thumbColor: black3,
+      activeTrackColor: black3,
       inactiveTrackColor: cardColorDarkTheme,
-      overlayColor: orange1.withOpacity(0.2),
+      overlayColor: cardColorDarkTheme.withOpacity(0.2),
     ),
     cardColor: cardColorDarkTheme,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(

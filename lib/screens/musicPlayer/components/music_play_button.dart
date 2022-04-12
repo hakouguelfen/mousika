@@ -16,12 +16,12 @@ class PlayButton extends StatelessWidget {
         buttonState ? 'Play' : 'Stop',
         style: Theme.of(context).textTheme.headline6!.copyWith(
               fontSize: 20,
-              color: orange2,
+              color: blue1,
             ),
       ),
       icon: musicStateIcon(buttonState),
-      backgroundColor: orange1,
-      foregroundColor: orange2,
+      backgroundColor: Theme.of(context).cardColor,
+      foregroundColor: blue1,
     );
   }
 

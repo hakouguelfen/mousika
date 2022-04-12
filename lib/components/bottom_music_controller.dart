@@ -65,7 +65,7 @@ class BottomMusicController extends StatelessWidget {
                   curve: Curves.fastOutSlowIn,
                   color: Theme.of(context)
                       .scaffoldBackgroundColor
-                      .withOpacity(0.4),
+                      .withOpacity(0.5),
                 );
               },
             ),

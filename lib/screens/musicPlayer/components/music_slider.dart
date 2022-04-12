@@ -49,9 +49,12 @@ class _MusicSliderState extends State<MusicSlider> {
               children: [
                 Text(
                   _getTimeString(progressVal.current),
-                  style: const TextStyle(color: Colors.amber),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
                 ),
-                Text(_getTimeString(progressVal.total)),
+                Text(
+                  _getTimeString(progressVal.total),
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
               ],
             ),
           ],
