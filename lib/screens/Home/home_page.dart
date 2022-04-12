@@ -6,7 +6,6 @@ import 'package:music_play/services/service_locator.dart';
 
 import 'package:music_play/constants.dart';
 
-import '../../components/favorite_music.dart';
 import '../../components/music_container.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,9 +20,8 @@ class _MusicListState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     final pageManager = getIt<PageManager>();
-    List<String> songs_types = ['artists', 'albums', 'genre'];
+    List<String> songsTypes = ['artists', 'albums', 'genre'];
 
     return Scaffold(
       body: CustomScrollView(
@@ -72,7 +70,7 @@ class _MusicListState extends State<HomePage> {
                             width: 100,
                             margin: const EdgeInsets.only(top: 100, left: 10),
                             child: Center(
-                              child: Text(songs_types[index]),
+                              child: Text(songsTypes[index]),
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
@@ -84,7 +82,7 @@ class _MusicListState extends State<HomePage> {
                             ),
                           );
                         },
-                        itemCount: songs_types.length,
+                        itemCount: songsTypes.length,
                         scrollDirection: Axis.horizontal,
                         physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,

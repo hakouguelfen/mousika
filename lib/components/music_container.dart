@@ -90,10 +90,34 @@ class MusicContainer extends StatelessWidget {
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child: Icon(
-                Icons.more_vert_rounded,
-                color: Theme.of(context).iconTheme.color,
+              child: PopupMenuButton(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: const ListTile(
+                      leading: Icon(Icons.edit),
+                      title: Text('edit'),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: const ListTile(
+                      leading: Icon(Icons.delete),
+                      title: Text('delete'),
+                    ),
+                  ),
+                ],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(defaultBorderRaduis),
+                ),
               ),
+              // child: InkWell(
+              //   onTap: () {
+              //     print('gggg');
+              //   },
+              //   child: Icon(
+              //     Icons.more_vert_rounded,
+              //     color: Theme.of(context).iconTheme.color,
+              //   ),
+              // ),
             ),
           ],
         ),
