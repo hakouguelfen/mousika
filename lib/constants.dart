@@ -16,8 +16,8 @@ const cardColorLightTheme = white2;
 // *************** COLORS ******************
 // *****************************************
 // ############### BLACK ###################
-const black1 = Color(0xFF181a1b);
-const black2 = Color(0xFF232427);
+const black1 = Color(0xFF111111);
+const black2 = Color(0xFF161717);
 const black3 = Color(0xFF2f3035);
 
 // ############### WHITE ###################

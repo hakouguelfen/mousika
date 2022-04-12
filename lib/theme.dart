@@ -12,7 +12,7 @@ ThemeData lightThemeData(BuildContext context) {
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: darkThemeBackgroundColor),
     colorScheme: const ColorScheme.light(
-      primary: blue1,
+      primary: cardColorLightTheme,
       secondary: blue2,
       error: kErrorColor,
     ),
@@ -73,16 +73,16 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
 
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
+    appBarTheme: appBarTheme,
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: darkThemeBackgroundColor,
-    appBarTheme: appBarTheme,
-    iconTheme: const IconThemeData(color: blue1),
+    iconTheme: const IconThemeData(color: black3),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: kContentColorDarkTheme),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: cardColorDarkTheme,
       secondary: blue1,
-      error: kErrorColor,
+      secondaryContainer: black3,
     ),
     sliderTheme: SliderThemeData(
       trackShape: CustomTrackShape(),
@@ -116,9 +116,9 @@ ThemeData darkThemeData(BuildContext context) {
       iconTheme: MaterialStateProperty.all(
         const IconThemeData(size: 30),
       ),
-      indicatorColor: blue3,
+      indicatorColor: blue1,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      backgroundColor: black1,
+      backgroundColor: darkThemeBackgroundColor,
     ),
   );
 }
