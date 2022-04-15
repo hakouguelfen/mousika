@@ -49,7 +49,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "guelfen.hakoudev.music_play"
+        applicationId "guelfen.hakoudev.mousika"
         minSdkVersion 18
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
