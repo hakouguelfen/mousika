@@ -40,8 +40,6 @@ class HomePage extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context, List<Tab> myTabs) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Text(
         'Mousika',
         style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
@@ -50,13 +48,7 @@ class HomePage extends StatelessWidget {
         padding: EdgeInsets.all(defaultPadding * 0.5),
         child: Image(image: AssetImage('assets/icons/logo.png')),
       ),
-      bottom: TabBar(
-        indicator: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(defaultBorderRaduis),
-        ),
-        tabs: myTabs,
-      ),
+      bottom: TabBar(tabs: myTabs),
     );
   }
 }

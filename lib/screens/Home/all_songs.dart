@@ -14,7 +14,7 @@ class AllSongs extends StatelessWidget {
     final pageManager = getIt<PageManager>();
 
     return Padding(
-      padding: const EdgeInsets.only(top: defaultPadding),
+      padding: const EdgeInsets.only(top: defaultPadding * 2),
       child: ValueListenableBuilder<List<MediaItem>>(
         valueListenable: pageManager.playlistNotifier,
         builder: (_, playlist, __) {

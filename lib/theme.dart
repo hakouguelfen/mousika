@@ -7,7 +7,7 @@ ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
     primaryColor: blue2,
     scaffoldBackgroundColor: lightThemeBackgoundColor,
-    appBarTheme: appBarTheme,
+    appBarTheme: appBarTheme(lightThemeBackgoundColor),
     iconTheme: const IconThemeData(color: darkThemeBackgroundColor),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: darkThemeBackgroundColor),
@@ -16,41 +16,67 @@ ThemeData lightThemeData(BuildContext context) {
       primaryContainer: blue2,
       secondary: blue2,
     ),
-    sliderTheme: SliderThemeData(
-      trackShape: CustomTrackShape(),
-      trackHeight: 12,
-      thumbShape: const RoundSliderThumbShape(
-        enabledThumbRadius: 15,
-      ),
-      thumbColor: blue2,
-      activeTrackColor: blue1,
-      inactiveTrackColor: cardColorLightTheme,
-      overlayColor: blue1.withOpacity(0.2),
+    sliderTheme: sliderThemeData(
+      blue2,
+      blue1,
+      cardColorLightTheme,
+      blue1.withOpacity(0.2),
     ),
     cardColor: cardColorLightTheme,
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: blue1,
-      foregroundColor: blue2,
-      elevation: 0,
-      extendedSizeConstraints: BoxConstraints.tightFor(
-        width: 200,
-        height: 90,
-      ),
-      largeSizeConstraints: BoxConstraints.tightFor(
-        width: 90,
-        height: 90,
-      ),
+    floatingActionButtonTheme: floatingActionButtonThemeData(blue1, blue2),
+    navigationBarTheme: navigationBarThemeData(white1),
+    tabBarTheme: tabBarTheme(
+      darkThemeBackgroundColor,
+      darkThemeBackgroundColor.withOpacity(0.7),
+      cardColorLightTheme,
     ),
-    navigationBarTheme: NavigationBarThemeData(
-      labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-      ),
-      indicatorColor: blue1,
-      iconTheme: MaterialStateProperty.all(
-        const IconThemeData(size: 30),
-      ),
-      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      backgroundColor: white1,
+  );
+}
+
+ThemeData darkThemeData(BuildContext context) {
+  return ThemeData.dark().copyWith(
+    appBarTheme: appBarTheme(darkThemeBackgroundColor),
+    primaryColor: blue1,
+    scaffoldBackgroundColor: darkThemeBackgroundColor,
+    iconTheme: const IconThemeData(color: black3),
+    textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
+        .apply(bodyColor: lightThemeBackgoundColor),
+    colorScheme: const ColorScheme.dark().copyWith(
+      primary: cardColorDarkTheme,
+      secondary: blue1,
+      secondaryContainer: black3,
+      primaryContainer: blue2,
+    ),
+    sliderTheme: sliderThemeData(
+      black3,
+      black3,
+      cardColorDarkTheme,
+      cardColorDarkTheme.withOpacity(0.2),
+    ),
+    cardColor: cardColorDarkTheme,
+    floatingActionButtonTheme:
+        floatingActionButtonThemeData(cardColorDarkTheme, blue1),
+    navigationBarTheme: navigationBarThemeData(darkThemeBackgroundColor),
+    tabBarTheme: tabBarTheme(
+      lightThemeBackgoundColor,
+      lightThemeBackgoundColor.withOpacity(0.7),
+      cardColorDarkTheme,
+    ),
+  );
+}
+
+FloatingActionButtonThemeData floatingActionButtonThemeData(bgColor, fgColor) {
+  return FloatingActionButtonThemeData(
+    backgroundColor: bgColor,
+    foregroundColor: fgColor,
+    elevation: 0,
+    extendedSizeConstraints: const BoxConstraints.tightFor(
+      width: 200,
+      height: 90,
+    ),
+    largeSizeConstraints: const BoxConstraints.tightFor(
+      width: 90,
+      height: 90,
     ),
   );
 }
@@ -72,57 +98,50 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
   }
 }
 
-ThemeData darkThemeData(BuildContext context) {
-  return ThemeData.dark().copyWith(
-    appBarTheme: appBarTheme,
-    primaryColor: blue1,
-    scaffoldBackgroundColor: darkThemeBackgroundColor,
-    iconTheme: const IconThemeData(color: black3),
-    textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: lightThemeBackgoundColor),
-    colorScheme: const ColorScheme.dark().copyWith(
-      primary: cardColorDarkTheme,
-      secondary: blue1,
-      secondaryContainer: black3,
-      primaryContainer: blue2,
+AppBarTheme appBarTheme(bgColor) {
+  return AppBarTheme(
+    centerTitle: false,
+    elevation: 0,
+    backgroundColor: bgColor,
+  );
+}
+
+SliderThemeData sliderThemeData(
+    thumbColor, activeColor, inactiveColor, overlayColor) {
+  return SliderThemeData(
+    trackShape: CustomTrackShape(),
+    trackHeight: 12,
+    thumbShape: const RoundSliderThumbShape(
+      enabledThumbRadius: 15,
     ),
-    sliderTheme: SliderThemeData(
-      trackShape: CustomTrackShape(),
-      trackHeight: 12,
-      thumbShape: const RoundSliderThumbShape(
-        enabledThumbRadius: 15,
-      ),
-      thumbColor: black3,
-      activeTrackColor: black3,
-      inactiveTrackColor: cardColorDarkTheme,
-      overlayColor: cardColorDarkTheme.withOpacity(0.2),
-    ),
-    cardColor: cardColorDarkTheme,
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: cardColorDarkTheme,
-      foregroundColor: blue1,
-      elevation: 0,
-      extendedSizeConstraints: BoxConstraints.tightFor(
-        width: 200,
-        height: 90,
-      ),
-      largeSizeConstraints: BoxConstraints.tightFor(
-        width: 90,
-        height: 90,
-      ),
-    ),
-    navigationBarTheme: NavigationBarThemeData(
-      labelTextStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-      ),
-      iconTheme: MaterialStateProperty.all(
-        const IconThemeData(size: 30),
-      ),
-      indicatorColor: blue1,
-      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      backgroundColor: darkThemeBackgroundColor,
+    thumbColor: thumbColor,
+    activeTrackColor: activeColor,
+    inactiveTrackColor: inactiveColor,
+    overlayColor: overlayColor,
+  );
+}
+
+TabBarTheme tabBarTheme(labelColor, unselectedColor, indicatorColor) {
+  return TabBarTheme(
+    labelColor: labelColor,
+    unselectedLabelColor: unselectedColor,
+    indicator: BoxDecoration(
+      color: indicatorColor,
+      borderRadius: BorderRadius.circular(defaultBorderRaduis),
     ),
   );
 }
 
-const appBarTheme = AppBarTheme(centerTitle: false, elevation: 0);
+NavigationBarThemeData navigationBarThemeData(bgColor) {
+  return NavigationBarThemeData(
+    labelTextStyle: MaterialStateProperty.all(
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+    ),
+    indicatorColor: blue1,
+    iconTheme: MaterialStateProperty.all(
+      const IconThemeData(size: 30),
+    ),
+    labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+    backgroundColor: bgColor,
+  );
+}
