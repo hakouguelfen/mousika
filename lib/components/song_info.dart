@@ -43,7 +43,11 @@ class SongInfo extends StatelessWidget {
             child: Text(
               artist,
               style: TextStyle(
-                color: color.withOpacity(0.75),
+                color: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .color!
+                    .withOpacity(0.75),
               ),
             ),
             scrollDirection: Axis.horizontal,

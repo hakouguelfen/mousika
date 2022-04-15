@@ -13,6 +13,7 @@ ThemeData lightThemeData(BuildContext context) {
         .apply(bodyColor: darkThemeBackgroundColor),
     colorScheme: const ColorScheme.light(
       primary: cardColorLightTheme,
+      primaryContainer: blue2,
       secondary: blue2,
     ),
     sliderTheme: SliderThemeData(
