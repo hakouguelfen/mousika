@@ -95,6 +95,7 @@ class BottomMusicController extends StatelessWidget {
                   child: SongInfo(
                     title: currentSong.title,
                     artist: currentSong.artist ?? '',
+                    color: Theme.of(context).textTheme.bodyText2!.color!,
                     size: 0.01,
                     fontSize: 18,
                   ),

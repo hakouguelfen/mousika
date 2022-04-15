@@ -83,6 +83,7 @@ ThemeData darkThemeData(BuildContext context) {
       primary: cardColorDarkTheme,
       secondary: blue1,
       secondaryContainer: black3,
+      primaryContainer: blue2,
     ),
     sliderTheme: SliderThemeData(
       trackShape: CustomTrackShape(),

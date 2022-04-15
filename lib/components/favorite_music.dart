@@ -111,6 +111,8 @@ class FavouriteMusic extends StatelessWidget {
                             child: SongInfo(
                               title: song.title,
                               artist: song.artist ?? '',
+                              color:
+                                  Theme.of(context).textTheme.bodyText2!.color!,
                               size: 0,
                               fontSize: 16,
                             ),

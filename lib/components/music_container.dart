@@ -6,6 +6,7 @@ import 'package:music_play/constants.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
 
 import '../manager/page_manager.dart';
+import '../notifiers/play_button_notifier.dart';
 import '../services/service_locator.dart';
 
 class MusicContainer extends StatelessWidget {
@@ -60,32 +61,24 @@ class MusicContainer extends StatelessWidget {
                     opacity: 0.0,
                   )
                 : musicImage(currentSong.extras!['image']),
-            // Hero(
-            //   tag: 'song${currentSong.title}',
-            //   transitionOnUserGestures: true,
-            //   createRectTween: (begin, end) {
-            //     return MaterialRectCenterArcTween(begin: begin, end: end);
-            //   },
-            //   child: currentSong.extras!['image'] == null
-            //       ? const MusicCard(
-            //           width: 80,
-            //           height: double.maxFinite,
-            //           icon: Icons.music_note_rounded,
-            //           size: 40,
-            //           opacity: 0.0,
-            //         )
-            //       : musicImage(currentSong.extras!['image']),
-            // ),
             const SizedBox(width: defaultPadding * 0.7),
-            Flexible(
-              flex: 3,
-              fit: FlexFit.tight,
-              child: SongInfo(
-                title: currentSong.title,
-                artist: currentSong.artist ?? '',
-                size: 0.01,
-                fontSize: 18,
-              ),
+            ValueListenableBuilder<MediaItem>(
+              valueListenable: pageManager.currentSongNotifier,
+              builder: (_, _song, __) {
+                return Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: SongInfo(
+                    title: currentSong.title,
+                    artist: currentSong.artist ?? '',
+                    color: _song == currentSong
+                        ? Theme.of(context).colorScheme.primaryContainer
+                        : Theme.of(context).textTheme.bodyText2!.color!,
+                    size: 0.01,
+                    fontSize: 18,
+                  ),
+                );
+              },
             ),
             Flexible(
               flex: 1,

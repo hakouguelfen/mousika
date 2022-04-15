@@ -7,11 +7,13 @@ class SongInfo extends StatelessWidget {
     required this.artist,
     required this.size,
     required this.fontSize,
+    required this.color,
   }) : super(key: key);
   final String title;
   final String artist;
   final double size;
   final double fontSize;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,10 @@ class SongInfo extends StatelessWidget {
           child: SingleChildScrollView(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                    fontSize: fontSize,
-                  ),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: fontSize, color: color),
             ),
             scrollDirection: Axis.horizontal,
           ),
@@ -40,11 +43,7 @@ class SongInfo extends StatelessWidget {
             child: Text(
               artist,
               style: TextStyle(
-                color: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .color!
-                    .withOpacity(0.75),
+                color: color.withOpacity(0.75),
               ),
             ),
             scrollDirection: Axis.horizontal,
