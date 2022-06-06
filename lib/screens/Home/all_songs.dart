@@ -21,14 +21,9 @@ class AllSongs extends StatelessWidget {
           return ListView.builder(
             itemCount: playlist.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 0.5,
-                ),
-                child: MusicContainer(
-                  currentSong: playlist[index],
-                  gotoNextPage: false,
-                ),
+              return MusicContainer(
+                currentSong: playlist[index],
+                gotoNextPage: false,
               );
             },
           );
