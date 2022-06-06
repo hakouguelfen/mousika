@@ -5,6 +5,7 @@ import 'constants.dart';
 
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
+    useMaterial3: true,
     primaryColor: blue2,
     scaffoldBackgroundColor: lightThemeBackgoundColor,
     appBarTheme: appBarTheme(lightThemeBackgoundColor),
@@ -35,6 +36,7 @@ ThemeData lightThemeData(BuildContext context) {
 
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
+    useMaterial3: true,
     appBarTheme: appBarTheme(darkThemeBackgroundColor),
     primaryColor: blue1,
     scaffoldBackgroundColor: darkThemeBackgroundColor,
@@ -44,7 +46,6 @@ ThemeData darkThemeData(BuildContext context) {
     colorScheme: const ColorScheme.dark().copyWith(
       primary: cardColorDarkTheme,
       secondary: blue1,
-      secondaryContainer: black3,
       primaryContainer: blue2,
     ),
     sliderTheme: sliderThemeData(
@@ -71,17 +72,14 @@ FloatingActionButtonThemeData floatingActionButtonThemeData(bgColor, fgColor) {
     foregroundColor: fgColor,
     elevation: 0,
     extendedSizeConstraints: const BoxConstraints.tightFor(
-      width: 200,
-      height: 90,
-    ),
-    largeSizeConstraints: const BoxConstraints.tightFor(
-      width: 90,
+      width: 150,
       height: 90,
     ),
   );
 }
 
 class CustomTrackShape extends RoundedRectSliderTrackShape {
+  @override
   Rect getPreferredRect({
     required RenderBox parentBox,
     Offset offset = Offset.zero,
@@ -135,13 +133,14 @@ TabBarTheme tabBarTheme(labelColor, unselectedColor, indicatorColor) {
 NavigationBarThemeData navigationBarThemeData(bgColor) {
   return NavigationBarThemeData(
     labelTextStyle: MaterialStateProperty.all(
-      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: blue1),
     ),
     indicatorColor: blue1,
     iconTheme: MaterialStateProperty.all(
       const IconThemeData(size: 30),
     ),
-    labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+    labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
     backgroundColor: bgColor,
+    height: 100,
   );
 }

@@ -19,10 +19,10 @@ class MusicPlayer extends StatefulWidget {
   const MusicPlayer({Key? key, required this.currentSong}) : super(key: key);
 
   @override
-  _MusicPlayerState createState() => _MusicPlayerState();
+  MusicPlayerState createState() => MusicPlayerState();
 }
 
-class _MusicPlayerState extends State<MusicPlayer> {
+class MusicPlayerState extends State<MusicPlayer> {
   final pageManager = getIt<PageManager>();
 
   final favouriteSongs = getIt<FavouriteSongs>();
@@ -131,61 +131,46 @@ class _MusicPlayerState extends State<MusicPlayer> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // First Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 2,
-              child: ValueListenableBuilder<ButtonState>(
-                  valueListenable: pageManager.playButtonNotifier,
-                  builder: (_, buttonState, __) {
-                    return PlayButton(
-                      press: () {
-                        buttonState == ButtonState.paused
-                            ? pageManager.play()
-                            : pageManager.pause();
-                      },
-                      buttonState: buttonState == ButtonState.paused,
-                    );
-                  }),
-            ),
-            Expanded(
-              flex: 1,
-              child: FloatingActionButton.large(
-                heroTag: null,
-                onPressed: () => pageManager.next(),
-                child: Icon(
-                  Icons.skip_next_rounded,
-                  size: Theme.of(context).iconTheme.size,
-                ),
-                elevation: 0,
-              ),
-            ),
-          ],
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+          child: MusicSlider(),
         ),
-        // Second Row
         const SizedBox(height: defaultPadding * 1.3),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FloatingActionButton.large(
-              heroTag: null,
               onPressed: () => pageManager.previous(),
+              heroTag: null,
+              elevation: 0,
               child: Icon(
                 Icons.skip_previous_rounded,
                 size: Theme.of(context).iconTheme.size,
               ),
-              elevation: 0,
             ),
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: MusicSlider(),
+            ValueListenableBuilder<ButtonState>(
+                valueListenable: pageManager.playButtonNotifier,
+                builder: (_, buttonState, __) {
+                  return PlayButton(
+                    press: () {
+                      buttonState == ButtonState.paused
+                          ? pageManager.play()
+                          : pageManager.pause();
+                    },
+                    buttonState: buttonState == ButtonState.paused,
+                  );
+                }),
+            FloatingActionButton.large(
+              heroTag: null,
+              onPressed: () => pageManager.next(),
+              elevation: 0,
+              child: Icon(
+                Icons.skip_next_rounded,
+                size: Theme.of(context).iconTheme.size,
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

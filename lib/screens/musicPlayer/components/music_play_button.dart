@@ -19,13 +19,11 @@ class PlayButton extends StatelessWidget {
             ),
       ),
       icon: musicStateIcon(buttonState),
-      backgroundColor: Theme.of(context).cardColor,
-      foregroundColor: Theme.of(context).colorScheme.secondary,
     );
   }
 
-  Icon musicStateIcon(bool _buttonState) {
-    return _buttonState
+  Icon musicStateIcon(bool buttonState) {
+    return buttonState
         ? const Icon(Icons.arrow_right_rounded, size: 50)
         : const Icon(Icons.pause);
   }
