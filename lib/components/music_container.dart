@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_play/components/music_card.dart';
 import 'package:music_play/constants.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
+import 'package:music_play/services/goto.dart';
 
 import '../manager/page_manager.dart';
 import '../services/service_locator.dart';
@@ -29,14 +30,7 @@ class MusicContainer extends StatelessWidget {
         if (gotoNextPage) {
           // hide keyboard programaticlly first to avoid renderflex error
           FocusScope.of(context).unfocus();
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 700),
-              pageBuilder: (context, animation, _) => MusicPlayer(
-                currentSong: currentSong,
-              ),
-            ),
-          );
+          goto(context, MusicPlayer(currentSong: currentSong));
         }
       },
       child: Container(
@@ -52,6 +46,9 @@ class MusicContainer extends StatelessWidget {
           valueListenable: pageManager.currentSongNotifier,
           builder: (_, song, __) {
             return ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding * 0.5,
+              ),
               leading: currentSong.extras!['image'] == null
                   ? const MusicCard(
                       width: 80,
@@ -80,15 +77,15 @@ class MusicContainer extends StatelessWidget {
                 ),
               ),
               trailing: PopupMenuButton(
-                itemBuilder: (context) => [
+                itemBuilder: (context) => const [
                   PopupMenuItem(
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.edit),
                       title: Text('edit'),
                     ),
                   ),
                   PopupMenuItem(
-                    child: const ListTile(
+                    child: ListTile(
                       leading: Icon(Icons.delete),
                       title: Text('delete'),
                     ),

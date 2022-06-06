@@ -3,12 +3,10 @@ import 'package:music_play/error.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:music_play/loading.dart';
-import 'package:music_play/screens/Search/search_page.dart';
-// import 'package:music_play/screens/setting/setting_page.dart';
-
 import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
 import 'screens/musicPlayer/services/favourite_music_service.dart';
+import 'screens/setting/setting_page.dart';
 import 'services/service_locator.dart';
 import 'theme.dart';
 
@@ -39,11 +37,7 @@ class _MyAppState extends State<MyApp> {
   int selectedIndex = 0;
   late Future _isLoading;
 
-  List screens = const [
-    HomePage(),
-    SearchPage(),
-    // SettingPage(),
-  ];
+  List screens = const [HomePage(), SettingPage()];
 
   @override
   void initState() {
@@ -93,23 +87,15 @@ class _MyAppState extends State<MyApp> {
           label: 'Home',
         ),
         NavigationDestination(
-          icon: const Icon(Icons.search_outlined),
+          icon: const Icon(
+            Icons.settings,
+          ),
           selectedIcon: Icon(
-            Icons.search_rounded,
+            Icons.settings,
             color: Theme.of(context).iconTheme.color,
           ),
-          label: 'Search',
+          label: 'Settings',
         ),
-        // NavigationDestination(
-        //   icon: const Icon(
-        //     Icons.settings,
-        //   ),
-        //   selectedIcon: Icon(
-        //     Icons.settings,
-        //     color: Theme.of(context).iconTheme.color,
-        //   ),
-        //   label: 'Settings',
-        // ),
       ],
       onDestinationSelected: (index) => setState(() => selectedIndex = index),
       selectedIndex: selectedIndex,
