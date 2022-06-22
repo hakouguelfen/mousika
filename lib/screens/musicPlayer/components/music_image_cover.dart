@@ -2,10 +2,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:music_play/components/music_round_card.dart';
+import 'package:music_play/constants.dart';
+import 'package:music_play/manager/page_manager.dart';
+import 'package:music_play/notifiers/progressbar_notifier.dart';
+import 'package:music_play/services/service_locator.dart';
+
+import 'music_slider.dart';
 
 class MusicImageCover extends StatelessWidget {
-  const MusicImageCover({Key? key, required this.title, required this.image})
-      : super(key: key);
+  const MusicImageCover({super.key, required this.title, required this.image});
 
   final String title;
   final Uint8List? image;
@@ -14,18 +19,57 @@ class MusicImageCover extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: 'song$title',
-      child: image == null ? const RoundedMusicCard() : musicImage(context),
+      child: Stack(
+        children: [
+          image == null ? const RoundedMusicCard() : musicImage(context),
+          const MusicSlider(),
+        ],
+      ),
     );
   }
 
-  SizedBox musicImage(context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: double.maxFinite,
-      child: CircleAvatar(
-        backgroundImage: MemoryImage(image!),
-        backgroundColor: Theme.of(context).cardColor,
-      ),
+  Stack musicImage(context) {
+    final pageManager = getIt<PageManager>();
+
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    return Stack(
+      children: [
+        Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          padding: const EdgeInsets.all(defaultPadding),
+          child: CircleAvatar(
+            backgroundImage: MemoryImage(image!),
+            backgroundColor: Theme.of(context).cardColor,
+          ),
+        ),
+        ValueListenableBuilder<ProgressBarState>(
+          valueListenable: pageManager.progressNotifier,
+          builder: (_, progressVal, __) {
+            final psongProgess = progressVal.current.inSeconds.toDouble() *
+                (width - defaultPadding) /
+                progressVal.total.inSeconds.toDouble();
+
+            return AnimatedContainer(
+              constraints: const BoxConstraints(
+                maxWidth: double.maxFinite,
+                minWidth: 0.0,
+              ),
+              margin: const EdgeInsets.all(defaultPadding),
+              width: width - (defaultPadding) - psongProgess,
+              height: height,
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(.5),
+                shape: BoxShape.circle,
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

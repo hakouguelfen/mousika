@@ -3,6 +3,7 @@ import 'package:music_play/constants.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/services/service_locator.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class MusicSlider extends StatefulWidget {
   const MusicSlider({Key? key}) : super(key: key);
@@ -31,34 +32,32 @@ class _MusicSliderState extends State<MusicSlider> {
     return ValueListenableBuilder<ProgressBarState>(
       valueListenable: pageManager.progressNotifier,
       builder: (_, dynamic progressVal, __) {
-        return Column(
-          children: [
-            Slider(
-              min: 0.0,
-              value: progressVal.current.inSeconds.toDouble(),
-              max: progressVal.total.inSeconds.toDouble(),
-              onChanged: (double value) {
-                setState(() {
-                  Duration position = Duration(seconds: value.toInt());
-                  pageManager.seek(position);
-                });
-              },
+        return SleekCircularSlider(
+            appearance: CircularSliderAppearance(
+              customWidths: CustomSliderWidths(
+                progressBarWidth: 10,
+                trackWidth: 10,
+                shadowWidth: 10,
+                handlerSize: 10,
+              ),
+              customColors: CustomSliderColors(
+                progressBarColor: blue1,
+                trackColor: Theme.of(context).cardColor,
+                dotColor: blue2,
+                shadowColor: blue1.withOpacity(0.2),
+                shadowStep: 10,
+              ),
+              size: double.maxFinite,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _getTimeString(progressVal.current),
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-                Text(
-                  _getTimeString(progressVal.total),
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-              ],
-            ),
-          ],
-        );
+            min: 0.0,
+            initialValue: progressVal.current.inSeconds.toDouble(),
+            max: progressVal.total.inSeconds.toDouble(),
+            onChange: (double value) {
+              setState(() {
+                Duration position = Duration(seconds: value.toInt());
+                pageManager.seek(position);
+              });
+            });
       },
     );
   }

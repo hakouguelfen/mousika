@@ -1,22 +1,17 @@
-import 'dart:convert';
-
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/constants.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/notifiers/play_button_notifier.dart';
 import 'package:music_play/screens/musicPlayer/components/music_description.dart';
-import 'package:music_play/screens/musicPlayer/components/music_slider.dart';
 import 'package:music_play/services/convert_song.dart';
 import 'package:music_play/services/service_locator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'components/music_image_cover.dart';
 import 'components/music_play_button.dart';
-import 'services/favourite_music_service.dart';
 
 class MusicPlayer extends StatefulWidget {
   final MediaItem currentSong;
-  const MusicPlayer({Key? key, required this.currentSong}) : super(key: key);
+  const MusicPlayer({super.key, required this.currentSong});
 
   @override
   MusicPlayerState createState() => MusicPlayerState();
@@ -24,12 +19,7 @@ class MusicPlayer extends StatefulWidget {
 
 class MusicPlayerState extends State<MusicPlayer> {
   final pageManager = getIt<PageManager>();
-
-  final favouriteSongs = getIt<FavouriteSongs>();
   final convertSong = ConvertSong();
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late Future<bool> _isFavourite;
 
   @override
   void initState() {
@@ -41,14 +31,6 @@ class MusicPlayerState extends State<MusicPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    _isFavourite = _prefs.then((SharedPreferences prefs) {
-      return prefs.getStringList('favouriteSong')!.contains(
-            json.encode(
-              convertSong.toSongMetadata(pageManager.currentSongNotifier.value),
-            ),
-          );
-    });
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -63,22 +45,9 @@ class MusicPlayerState extends State<MusicPlayer> {
         centerTitle: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
-          FutureBuilder<bool>(
-            future: _isFavourite,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return IconButton(
-                  onPressed: () {
-                    snapshot.data
-                        ? favouriteSongs.removeSong(widget.currentSong)
-                        : favouriteSongs.addSong(widget.currentSong);
-                    setState(() {});
-                  },
-                  icon: favouriteSongStateIcon(snapshot.data ?? false),
-                );
-              }
-              return Container();
-            },
+          IconButton(
+            onPressed: () {},
+            icon: favouriteSongStateIcon(false),
           ),
         ],
       ),
@@ -127,49 +96,39 @@ class MusicPlayerState extends State<MusicPlayer> {
     );
   }
 
-  Column musicController() {
-    return Column(
+  Row musicController() {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: MusicSlider(),
+        FloatingActionButton.large(
+          onPressed: () => pageManager.previous(),
+          heroTag: null,
+          elevation: 0,
+          child: Icon(
+            Icons.skip_previous_rounded,
+            size: Theme.of(context).iconTheme.size,
+          ),
         ),
-        const SizedBox(height: defaultPadding * 1.3),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton.large(
-              onPressed: () => pageManager.previous(),
-              heroTag: null,
-              elevation: 0,
-              child: Icon(
-                Icons.skip_previous_rounded,
-                size: Theme.of(context).iconTheme.size,
-              ),
-            ),
-            ValueListenableBuilder<ButtonState>(
-                valueListenable: pageManager.playButtonNotifier,
-                builder: (_, buttonState, __) {
-                  return PlayButton(
-                    press: () {
-                      buttonState == ButtonState.paused
-                          ? pageManager.play()
-                          : pageManager.pause();
-                    },
-                    buttonState: buttonState == ButtonState.paused,
-                  );
-                }),
-            FloatingActionButton.large(
-              heroTag: null,
-              onPressed: () => pageManager.next(),
-              elevation: 0,
-              child: Icon(
-                Icons.skip_next_rounded,
-                size: Theme.of(context).iconTheme.size,
-              ),
-            ),
-          ],
+        ValueListenableBuilder<ButtonState>(
+            valueListenable: pageManager.playButtonNotifier,
+            builder: (_, buttonState, __) {
+              return PlayButton(
+                press: () {
+                  buttonState == ButtonState.paused
+                      ? pageManager.play()
+                      : pageManager.pause();
+                },
+                buttonState: buttonState == ButtonState.paused,
+              );
+            }),
+        FloatingActionButton.large(
+          heroTag: null,
+          onPressed: () => pageManager.next(),
+          elevation: 0,
+          child: Icon(
+            Icons.skip_next_rounded,
+            size: Theme.of(context).iconTheme.size,
+          ),
         ),
       ],
     );

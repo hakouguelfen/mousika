@@ -133,7 +133,7 @@ TabBarTheme tabBarTheme(labelColor, unselectedColor, indicatorColor) {
 NavigationBarThemeData navigationBarThemeData(bgColor) {
   return NavigationBarThemeData(
     labelTextStyle: MaterialStateProperty.all(
-      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: blue1),
+      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
     ),
     indicatorColor: blue1,
     iconTheme: MaterialStateProperty.all(
