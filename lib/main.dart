@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:music_play/error.dart';
+import 'package:music_play/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:music_play/loading.dart';
@@ -10,8 +12,16 @@ import 'screens/setting/setting_page.dart';
 import 'services/service_locator.dart';
 import 'theme.dart';
 
-void main() async {
+Future initializeHive() async {
+  await Hive.initFlutter();
+  Box box = await Hive.openBox('mousika');
+
+  box.put('theme', box.get('theme') ?? 'dark');
+}
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeHive();
 
   if (await Permission.storage.isDenied) {
     await Permission.storage.request();
@@ -26,14 +36,14 @@ void main() async {
   runApp(const Error());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends ConsumerState<MyApp> {
   int selectedIndex = 0;
   late Future _isLoading;
 
@@ -53,11 +63,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider().init(context);
+
     return MaterialApp(
       title: 'Music App',
       debugShowCheckedModeBanner: false,
-      theme: lightThemeData(context),
-      darkTheme: darkThemeData(context),
+      theme: ref.watch(themeProvider),
       home: FutureBuilder(
         future: _isLoading,
         builder: (BuildContext context, AsyncSnapshot snapshot) {

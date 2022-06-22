@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // ***************** DARK ******************
 // *****************************************
 const darkThemeBackgroundColor = black1;
-const cardColorDarkTheme = black2;
+const cardColorDarkTheme = black3;
 
 // *****************************************
 // **************** LIGHT ******************
@@ -18,7 +18,9 @@ const cardColorLightTheme = white2;
 // ############### BLACK ###################
 const black1 = Color(0xFF111111);
 const black2 = Color(0xFF161717);
-const black3 = Color(0xFF2f3035);
+const black3 = Color(0xFF192121);
+const black4 = Color(0xFF2f3035);
+const black5 = Color(0xFF333535);
 
 // ############### WHITE ###################
 const white1 = Color(0xFFF5FCF9);
