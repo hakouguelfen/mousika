@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_play/constants.dart';
 
 class RoundedMusicCard extends StatelessWidget {
   const RoundedMusicCard({
@@ -7,9 +8,10 @@ class RoundedMusicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.maxFinite,
       height: double.maxFinite,
+      padding: const EdgeInsets.all(defaultPadding),
       child: CircleAvatar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(

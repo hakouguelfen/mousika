@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:music_play/components/music_card.dart';
 import 'package:music_play/components/song_info.dart';
 import 'package:music_play/constants.dart';
+import 'package:music_play/notifiers/play_button_notifier.dart';
 import 'package:music_play/notifiers/progressbar_notifier.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
 
 import '../manager/page_manager.dart';
-import '../notifiers/play_button_notifier.dart';
 import '../services/service_locator.dart';
 
 class BottomMusicController extends StatelessWidget {
   final MediaItem currentSong;
-  const BottomMusicController({Key? key, required this.currentSong})
-      : super(key: key);
+  const BottomMusicController({super.key, required this.currentSong});
 
   @override
   Widget build(BuildContext context) {

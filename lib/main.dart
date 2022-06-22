@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:music_play/error.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:music_play/loading.dart';
 import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
-import 'screens/musicPlayer/services/favourite_music_service.dart';
 import 'screens/setting/setting_page.dart';
 import 'services/service_locator.dart';
 import 'theme.dart';
@@ -19,7 +19,7 @@ void main() async {
 
   if (await Permission.storage.isGranted) {
     await setupServiceLocator();
-    runApp(const MyApp());
+    runApp(const ProviderScope(child: MyApp()));
     return;
   }
 
@@ -27,7 +27,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -41,10 +41,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _isLoading = getIt<PageManager>().init();
-    getIt<FavouriteSongs>().init();
-
     super.initState();
+    _isLoading = getIt<PageManager>().init();
   }
 
   @override

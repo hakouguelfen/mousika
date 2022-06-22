@@ -11,11 +11,12 @@ import '../services/service_locator.dart';
 class MusicContainer extends StatelessWidget {
   final MediaItem currentSong;
   final bool gotoNextPage;
+
   const MusicContainer({
-    Key? key,
+    super.key,
     required this.currentSong,
     required this.gotoNextPage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

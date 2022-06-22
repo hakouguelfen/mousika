@@ -1,13 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-
-import '../../components/music_container.dart';
-import '../../constants.dart';
-import '../../manager/page_manager.dart';
-import '../../services/service_locator.dart';
+import 'package:music_play/components/music_container.dart';
+import 'package:music_play/constants.dart';
+import 'package:music_play/manager/page_manager.dart';
+import 'package:music_play/services/service_locator.dart';
 
 class AllSongs extends StatelessWidget {
-  const AllSongs({Key? key}) : super(key: key);
+  const AllSongs({super.key});
 
   @override
   Widget build(BuildContext context) {
