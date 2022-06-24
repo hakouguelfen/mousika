@@ -2,55 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:music_play/constants.dart';
 
 class Loading extends StatelessWidget {
-  const Loading({Key? key}) : super(key: key);
+  const Loading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
-      bottomNavigationBar: const Skelton(
+      bottomNavigationBar: Skelton(
         width: double.maxFinite,
-        height: 80,
+        height: 180,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const MusicSkelton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Skelton(
+                  width: 50,
+                  height: 50,
+                ),
+                Skelton(
+                  width: 50,
+                  height: 50,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.only(top: defaultPadding * 2),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: height * 0.03),
-              const Skelton(width: 150),
-              SizedBox(height: height * 0.03),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: Skelton(width: 200, height: 200),
-                    );
-                  },
-                ),
+              Row(
+                children: const [
+                  Expanded(
+                    child: Skelton(
+                      width: double.maxFinite,
+                      height: 50,
+                    ),
+                  ),
+                  SizedBox(width: defaultPadding * 0.5),
+                  Expanded(
+                    child: Skelton(
+                      width: double.maxFinite,
+                      height: 50,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: height * 0.03),
-              const Skelton(width: 150),
-              SizedBox(height: height * 0.03),
+              const SizedBox(height: defaultPadding),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: defaultPadding * 0.5,
-                      ),
-                      child: Skelton(
-                        width: double.maxFinite,
-                        height: height * 0.1,
-                      ),
-                    );
+                    return const MusicSkelton();
                   },
                 ),
               )
@@ -62,26 +70,59 @@ class Loading extends StatelessWidget {
   }
 }
 
+class MusicSkelton extends StatelessWidget {
+  const MusicSkelton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Skelton(
+      margin: EdgeInsets.symmetric(
+        vertical: defaultPadding * 0.1,
+        horizontal: defaultPadding * 0.5,
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 0,
+        ),
+        leading: Skelton(
+          width: 80,
+          height: double.maxFinite,
+        ),
+        title: Skelton(width: 50, height: 10),
+        subtitle: Skelton(width: 20, height: 10),
+      ),
+    );
+  }
+}
+
 class Skelton extends StatelessWidget {
   const Skelton({
-    Key? key,
+    super.key,
     this.width,
     this.height,
-  }) : super(key: key);
+    this.child,
+    this.margin,
+  });
 
   final double? width;
   final double? height;
+  final Widget? child;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(defaultPadding),
+      margin: margin,
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).cardColor.withOpacity(0.7),
         borderRadius: BorderRadius.circular(defaultBorderRaduis),
+        border: Border.all(
+          color: Theme.of(context).cardColor.withOpacity(0.5),
+        ),
       ),
       width: width,
       height: height,
+      child: child,
     );
   }
 }
