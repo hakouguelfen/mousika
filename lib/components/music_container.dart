@@ -1,6 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:music_play/components/music_card.dart';
+import 'package:music_play/components/music_image.dart';
 import 'package:music_play/constants.dart';
 import 'package:music_play/screens/musicPlayer/music_player.dart';
 import 'package:music_play/services/goto.dart';
@@ -58,9 +59,11 @@ class MusicContainer extends StatelessWidget {
                       size: 40,
                       opacity: 0.0,
                     )
-                  : musicImage(currentSong.extras!['image']),
+                  : MusicImage(image: currentSong.extras!['image']),
               title: Text(
                 currentSong.title,
+                overflow: TextOverflow.ellipsis,
+                semanticsLabel: "song name",
                 style: TextStyle(
                   color: song == currentSong
                       ? Theme.of(context).colorScheme.primaryContainer
@@ -69,6 +72,7 @@ class MusicContainer extends StatelessWidget {
               ),
               subtitle: Text(
                 currentSong.artist ?? "",
+                semanticsLabel: "artist name",
                 style: TextStyle(
                   color: Theme.of(context)
                       .textTheme
@@ -99,19 +103,6 @@ class MusicContainer extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Container musicImage(image) {
-    return Container(
-      width: 70,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: MemoryImage(image),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(defaultPadding * 0.5),
       ),
     );
   }

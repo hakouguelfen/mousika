@@ -13,8 +13,11 @@ class Songs {
     List<SongModel> songs = await _audioQuery.querySongs();
 
     for (var song in songs) {
-      Uint8List? image =
-          await _audioQuery.queryArtwork(song.id, ArtworkType.AUDIO);
+      Uint8List? image = await _audioQuery.queryArtwork(
+        song.id,
+        ArtworkType.AUDIO,
+        format: ArtworkFormat.PNG,
+      );
 
       playList.add(
         MediaItem(
@@ -27,5 +30,9 @@ class Songs {
       );
     }
     return playList;
+  }
+
+  Future getSongsByArtist() async {
+    return await _audioQuery.queryAlbums();
   }
 }

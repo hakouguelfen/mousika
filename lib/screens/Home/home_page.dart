@@ -4,6 +4,7 @@ import 'package:music_play/components/bottom_music_controller.dart';
 import 'package:music_play/components/custom_search_delegate.dart';
 import 'package:music_play/manager/page_manager.dart';
 import 'package:music_play/screens/Home/all_songs.dart';
+import 'package:music_play/screens/Home/artists.dart';
 import 'package:music_play/services/service_locator.dart';
 
 import 'package:music_play/constants.dart';
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
         body: const TabBarView(
           children: [
             AllSongs(),
-            Text('artists'),
+            Artists(),
           ],
         ),
         bottomNavigationBar: ValueListenableBuilder<MediaItem>(

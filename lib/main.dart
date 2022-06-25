@@ -10,7 +10,6 @@ import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
 import 'screens/setting/setting_page.dart';
 import 'services/service_locator.dart';
-import 'theme.dart';
 
 Future initializeHive() async {
   await Hive.initFlutter();

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:music_play/components/music_round_card.dart';
@@ -32,7 +33,6 @@ class MusicImageCover extends StatelessWidget {
     final pageManager = getIt<PageManager>();
 
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
 
     return Stack(
       children: [
@@ -48,20 +48,23 @@ class MusicImageCover extends StatelessWidget {
         ValueListenableBuilder<ProgressBarState>(
           valueListenable: pageManager.progressNotifier,
           builder: (_, progressVal, __) {
-            final psongProgess = progressVal.current.inSeconds.toDouble() *
-                (width - defaultPadding) /
-                progressVal.total.inSeconds.toDouble();
+            final double current = progressVal.current.inSeconds.toDouble();
+            final double total = progressVal.total.inSeconds.toDouble();
+            final double psongProgess =
+                current * (width - defaultPadding) / total;
 
             return AnimatedContainer(
               constraints: const BoxConstraints(
                 maxWidth: double.maxFinite,
                 minWidth: 0.0,
               ),
-              margin: const EdgeInsets.all(defaultPadding),
-              width: width - (defaultPadding) - psongProgess,
-              height: height,
+              margin: EdgeInsets.all(
+                psongProgess < defaultPadding
+                    ? defaultPadding
+                    : psongProgess * math.sin(psongProgess) + psongProgess,
+              ),
               duration: const Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn,
+              curve: Curves.easeInOutCubic,
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(.5),
                 shape: BoxShape.circle,
