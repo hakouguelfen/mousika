@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:music_play/error.dart';
-import 'package:music_play/provider.dart';
+import 'package:mousika/error.dart';
+import 'package:mousika/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:music_play/loading.dart';
+import 'package:mousika/loading.dart';
 import 'manager/page_manager.dart';
 import 'screens/Home/home_page.dart';
 import 'screens/setting/setting_page.dart';
+import 'services/notification.dart';
 import 'services/service_locator.dart';
 
 Future initializeHive() async {
@@ -52,6 +53,7 @@ class MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
     _isLoading = getIt<PageManager>().init();
+    getIt<NotificatioService>().init();
   }
 
   @override

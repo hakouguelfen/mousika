@@ -1,12 +1,12 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:music_play/components/music_card.dart';
-import 'package:music_play/components/music_image.dart';
-import 'package:music_play/components/song_info.dart';
-import 'package:music_play/constants.dart';
-import 'package:music_play/notifiers/play_button_notifier.dart';
-import 'package:music_play/notifiers/progressbar_notifier.dart';
-import 'package:music_play/screens/musicPlayer/music_player.dart';
+import 'package:mousika/components/music_card.dart';
+import 'package:mousika/components/music_image.dart';
+import 'package:mousika/components/song_info.dart';
+import 'package:mousika/constants.dart';
+import 'package:mousika/notifiers/play_button_notifier.dart';
+import 'package:mousika/notifiers/progressbar_notifier.dart';
+import 'package:mousika/screens/musicPlayer/music_player.dart';
 
 import '../manager/page_manager.dart';
 import '../services/service_locator.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
-import 'package:music_play/theme.dart';
+import 'package:mousika/theme.dart';
 
 class Error extends StatelessWidget {
   const Error({Key? key}) : super(key: key);

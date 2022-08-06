@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:music_play/components/music_container.dart';
-import 'package:music_play/constants.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/components/music_container.dart';
+import 'package:mousika/constants.dart';
+import 'package:mousika/manager/page_manager.dart';
+import 'package:mousika/services/service_locator.dart';
 
 class AllSongs extends StatelessWidget {
   const AllSongs({super.key});

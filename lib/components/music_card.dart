@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
 class MusicCard extends StatelessWidget {
   const MusicCard({

@@ -2,11 +2,11 @@ import 'dart:typed_data';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:music_play/components/music_round_card.dart';
-import 'package:music_play/constants.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/notifiers/progressbar_notifier.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/components/music_round_card.dart';
+import 'package:mousika/constants.dart';
+import 'package:mousika/manager/page_manager.dart';
+import 'package:mousika/notifiers/progressbar_notifier.dart';
+import 'package:mousika/services/service_locator.dart';
 
 import 'music_slider.dart';
 

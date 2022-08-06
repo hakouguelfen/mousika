@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music_play/theme.dart';
+import 'package:mousika/theme.dart';
 
 final box = Hive.box('mousika');
 

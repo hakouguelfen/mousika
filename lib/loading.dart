@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});

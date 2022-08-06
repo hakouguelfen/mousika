@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
 class MusicDescription extends StatelessWidget {
   const MusicDescription({

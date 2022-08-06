@@ -1,7 +1,7 @@
 import 'dart:typed_data' as td;
 
 import 'package:flutter/material.dart';
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
 class MusicImage extends StatelessWidget {
   const MusicImage({super.key, required this.image});

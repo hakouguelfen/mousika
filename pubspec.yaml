@@ -1,11 +1,11 @@
-name: music_play
+name: mousika
 description: A music player app.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: "none"
 version: 1.0.0+1
 repository: "https://github.com/hakouklvn/mousika.git"
 
 environment:
-  sdk: ">=2.17.1 <3.0.0"
+  sdk: ">=2.17.6 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,6 +26,7 @@ dependencies:
   flutter_riverpod: ^1.0.4
   hive_flutter: ^1.1.0
   hive: ^2.2.2
+  flutter_local_notifications: ^9.6.1
 
 dev_dependencies:
   flutter_test:

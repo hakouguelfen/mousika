@@ -1,8 +1,8 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:music_play/notifiers/play_button_notifier.dart';
-import 'package:music_play/notifiers/progressbar_notifier.dart';
-import 'package:music_play/services/songs_provider.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/notifiers/play_button_notifier.dart';
+import 'package:mousika/notifiers/progressbar_notifier.dart';
+import 'package:mousika/services/songs_provider.dart';
+import 'package:mousika/services/service_locator.dart';
 
 import 'package:flutter/foundation.dart';
 

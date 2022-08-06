@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/notifiers/play_button_notifier.dart';
-import 'package:music_play/screens/musicPlayer/services/provider.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/manager/page_manager.dart';
+import 'package:mousika/notifiers/play_button_notifier.dart';
+import 'package:mousika/screens/musicPlayer/services/provider.dart';
+import 'package:mousika/services/service_locator.dart';
 
 import 'music_play_button.dart';
 

@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/manager/page_manager.dart';
+import 'package:mousika/services/service_locator.dart';
 
 import 'music_container.dart';
 

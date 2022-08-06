@@ -1,13 +1,13 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:music_play/components/bottom_music_controller.dart';
-import 'package:music_play/components/custom_search_delegate.dart';
-import 'package:music_play/manager/page_manager.dart';
-import 'package:music_play/screens/Home/all_songs.dart';
-import 'package:music_play/screens/Home/artists.dart';
-import 'package:music_play/services/service_locator.dart';
+import 'package:mousika/components/bottom_music_controller.dart';
+import 'package:mousika/components/custom_search_delegate.dart';
+import 'package:mousika/manager/page_manager.dart';
+import 'package:mousika/screens/Home/all_songs.dart';
+import 'package:mousika/screens/Home/artists.dart';
+import 'package:mousika/services/service_locator.dart';
 
-import 'package:music_play/constants.dart';
+import 'package:mousika/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
