@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/manager/page_manager.dart';
 import 'package:mousika/notifiers/play_button_notifier.dart';
 import 'package:mousika/screens/musicPlayer/components/music_description.dart';
@@ -33,7 +33,7 @@ class MusicPlayerState extends State<MusicPlayer> {
       appBar: buildAppBar(context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(Sizes.defaultPadding),
           child: ValueListenableBuilder<MediaItem>(
             valueListenable: pageManager.currentSongNotifier,
             builder: (_, song, __) {

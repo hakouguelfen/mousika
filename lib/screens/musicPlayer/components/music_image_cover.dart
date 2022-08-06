@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:mousika/components/music_round_card.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/manager/page_manager.dart';
 import 'package:mousika/notifiers/progressbar_notifier.dart';
 import 'package:mousika/services/service_locator.dart';
@@ -39,7 +39,7 @@ class MusicImageCover extends StatelessWidget {
         Container(
           width: double.maxFinite,
           height: double.maxFinite,
-          padding: const EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(Sizes.defaultPadding),
           child: CircleAvatar(
             backgroundImage: MemoryImage(image!),
             backgroundColor: Theme.of(context).cardColor,
@@ -51,7 +51,7 @@ class MusicImageCover extends StatelessWidget {
             final double current = progressVal.current.inSeconds.toDouble();
             final double total = progressVal.total.inSeconds.toDouble();
             final double psongProgess =
-                current * (width - defaultPadding) / total;
+                current * (width - Sizes.defaultPadding) / total;
 
             return AnimatedContainer(
               constraints: const BoxConstraints(
@@ -59,8 +59,8 @@ class MusicImageCover extends StatelessWidget {
                 minWidth: 0.0,
               ),
               margin: EdgeInsets.all(
-                psongProgess < defaultPadding
-                    ? defaultPadding
+                psongProgess < Sizes.defaultPadding
+                    ? Sizes.defaultPadding
                     : psongProgess * math.sin(psongProgess) + psongProgess,
               ),
               duration: const Duration(seconds: 1),

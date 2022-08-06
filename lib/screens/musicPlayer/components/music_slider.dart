@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
 import 'package:mousika/manager/page_manager.dart';
 import 'package:mousika/notifiers/progressbar_notifier.dart';
 import 'package:mousika/services/service_locator.dart';
@@ -41,10 +40,10 @@ class _MusicSliderState extends State<MusicSlider> {
                 handlerSize: 10,
               ),
               customColors: CustomSliderColors(
-                progressBarColor: blue1,
+                progressBarColor: Theme.of(context).primaryColor,
                 trackColor: Theme.of(context).cardColor,
-                dotColor: blue2,
-                shadowColor: blue1.withOpacity(0.2),
+                dotColor: Theme.of(context).colorScheme.primaryContainer,
+                shadowColor: Theme.of(context).primaryColor.withOpacity(0.2),
                 shadowStep: 10,
               ),
               size: double.maxFinite,

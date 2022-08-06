@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/manager/page_manager.dart';
-import 'package:mousika/notifiers/progressbar_notifier.dart';
-
-import 'dart:math' as math;
 
 import 'package:mousika/services/service_locator.dart';
 
@@ -20,7 +17,7 @@ class RoundedMusicCard extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: double.maxFinite,
-      padding: const EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.all(Sizes.defaultPadding),
       child: CircleAvatar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: Icon(

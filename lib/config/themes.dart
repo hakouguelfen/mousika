@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'constants.dart';
+import 'constants/constants.dart';
 
 ThemeData lightThemeData(BuildContext context) {
   return ThemeData.light().copyWith(
     useMaterial3: true,
-    primaryColor: blue2,
-    scaffoldBackgroundColor: lightThemeBackgoundColor,
-    appBarTheme: appBarTheme(lightThemeBackgoundColor),
-    iconTheme: const IconThemeData(color: darkThemeBackgroundColor),
+    primaryColor: Palette.primaryColor,
+    scaffoldBackgroundColor: Palette.white1,
+    appBarTheme: appBarTheme(Palette.white1),
+    iconTheme: const IconThemeData(color: Palette.black2),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: darkThemeBackgroundColor),
+        .apply(bodyColor: Palette.black2),
     colorScheme: const ColorScheme.light(
-      primary: cardColorLightTheme,
-      primaryContainer: blue2,
-      secondary: blue2,
+      primary: Palette.primaryColor,
+      primaryContainer: Palette.primaryLightColor,
+      secondary: Palette.secondaryColor,
     ),
     sliderTheme: sliderThemeData(
-      blue2,
-      blue1,
-      cardColorLightTheme,
-      blue1.withOpacity(0.2),
+      Palette.primaryColor,
+      Palette.primaryLightColor,
+      Palette.white2,
+      Palette.primaryColor.withOpacity(0.2),
     ),
-    cardColor: cardColorLightTheme,
-    floatingActionButtonTheme: floatingActionButtonThemeData(blue1, blue2),
-    navigationBarTheme: navigationBarThemeData(white1),
+    cardColor: Palette.white2,
+    floatingActionButtonTheme: floatingActionButtonThemeData(
+        Palette.primaryColor, Palette.primaryLightColor),
+    navigationBarTheme: navigationBarThemeData(Palette.white1),
     tabBarTheme: tabBarTheme(
-      darkThemeBackgroundColor,
-      darkThemeBackgroundColor.withOpacity(0.7),
-      cardColorLightTheme,
+      Palette.black2,
+      Palette.black2.withOpacity(0.7),
+      Palette.white2,
     ),
   );
 }
@@ -37,31 +38,31 @@ ThemeData lightThemeData(BuildContext context) {
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     useMaterial3: true,
-    appBarTheme: appBarTheme(darkThemeBackgroundColor),
-    primaryColor: blue1,
-    scaffoldBackgroundColor: darkThemeBackgroundColor,
-    iconTheme: const IconThemeData(color: black5),
+    appBarTheme: appBarTheme(Palette.black1),
+    primaryColor: Palette.primaryColor,
+    scaffoldBackgroundColor: Palette.black1,
+    iconTheme: const IconThemeData(color: Palette.black3),
     textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: lightThemeBackgoundColor),
+        .apply(bodyColor: Palette.white1),
     colorScheme: const ColorScheme.dark().copyWith(
-      primary: cardColorDarkTheme,
-      secondary: blue1,
-      primaryContainer: blue2,
+      primary: Palette.primaryColor,
+      secondary: Palette.secondaryColor,
+      primaryContainer: Palette.primaryLightColor,
     ),
     sliderTheme: sliderThemeData(
-      black3,
-      black3,
-      cardColorDarkTheme,
-      cardColorDarkTheme.withOpacity(0.2),
+      Palette.black3,
+      Palette.black3,
+      Palette.black2,
+      Palette.black2.withOpacity(0.2),
     ),
-    cardColor: cardColorDarkTheme,
+    cardColor: Palette.black2,
     floatingActionButtonTheme:
-        floatingActionButtonThemeData(cardColorDarkTheme, blue1),
-    navigationBarTheme: navigationBarThemeData(darkThemeBackgroundColor),
+        floatingActionButtonThemeData(Palette.black2, Palette.primaryColor),
+    navigationBarTheme: navigationBarThemeData(Palette.black1),
     tabBarTheme: tabBarTheme(
-      lightThemeBackgoundColor,
-      lightThemeBackgoundColor.withOpacity(0.7),
-      cardColorDarkTheme,
+      Palette.white1,
+      Palette.white1.withOpacity(0.7),
+      Palette.black2,
     ),
   );
 }
@@ -125,7 +126,7 @@ TabBarTheme tabBarTheme(labelColor, unselectedColor, indicatorColor) {
     unselectedLabelColor: unselectedColor,
     indicator: BoxDecoration(
       color: indicatorColor,
-      borderRadius: BorderRadius.circular(defaultBorderRaduis),
+      borderRadius: BorderRadius.circular(Sizes.defaultBorderRaduis),
     ),
   );
 }
@@ -135,7 +136,7 @@ NavigationBarThemeData navigationBarThemeData(bgColor) {
     labelTextStyle: MaterialStateProperty.all(
       const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
     ),
-    indicatorColor: blue1,
+    indicatorColor: Palette.primaryColor,
     iconTheme: MaterialStateProperty.all(
       const IconThemeData(size: 30),
     ),

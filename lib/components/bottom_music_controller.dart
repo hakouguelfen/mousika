@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mousika/components/music_card.dart';
 import 'package:mousika/components/music_image.dart';
 import 'package:mousika/components/song_info.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/notifiers/play_button_notifier.dart';
 import 'package:mousika/notifiers/progressbar_notifier.dart';
 import 'package:mousika/screens/musicPlayer/music_player.dart';
@@ -37,9 +37,9 @@ class BottomMusicController extends StatelessWidget {
         width: double.maxFinite,
         height: height * 0.08,
         margin: const EdgeInsets.only(
-          left: defaultPadding * 0.5,
-          right: defaultPadding * 0.5,
-          top: defaultPadding,
+          left: Sizes.defaultPadding * 0.5,
+          right: Sizes.defaultPadding * 0.5,
+          top: Sizes.defaultPadding,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -51,7 +51,7 @@ class BottomMusicController extends StatelessWidget {
               valueListenable: pageManager.progressNotifier,
               builder: (_, progressVal, __) {
                 final psongProgess = progressVal.current.inSeconds.toDouble() *
-                    (width - defaultPadding) /
+                    (width - Sizes.defaultPadding) /
                     progressVal.total.inSeconds.toDouble();
 
                 return AnimatedContainer(
@@ -88,7 +88,7 @@ class BottomMusicController extends StatelessWidget {
                         )
                       : MusicImage(image: currentSong.extras!['image']),
                 ),
-                const SizedBox(width: defaultPadding * 0.7),
+                const SizedBox(width: Sizes.defaultPadding * 0.7),
                 Flexible(
                   flex: 3,
                   fit: FlexFit.tight,

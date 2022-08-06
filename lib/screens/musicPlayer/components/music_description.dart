@@ -1,13 +1,10 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 
 class MusicDescription extends StatelessWidget {
-  const MusicDescription({
-    Key? key,
-    required this.currentSong,
-  }) : super(key: key);
   final MediaItem currentSong;
+  const MusicDescription({super.key, required this.currentSong});
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +13,20 @@ class MusicDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Text(
-            currentSong.title,
+            textAlign: TextAlign.center,
+            softWrap: true,
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
-            textAlign: TextAlign.center,
-            softWrap: true,
+            currentSong.title,
           ),
-          scrollDirection: Axis.horizontal,
         ),
-        const SizedBox(height: defaultPadding),
+        const SizedBox(height: Sizes.defaultPadding),
         SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Text(
             currentSong.artist ?? '',
             style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -37,7 +35,6 @@ class MusicDescription extends StatelessWidget {
                 ),
             textAlign: TextAlign.center,
           ),
-          scrollDirection: Axis.horizontal,
         ),
       ],
     );

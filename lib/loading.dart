@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -33,7 +33,7 @@ class Loading extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: defaultPadding * 2),
+          padding: const EdgeInsets.only(top: Sizes.defaultPadding * 2),
           child: Column(
             children: [
               Row(
@@ -44,7 +44,7 @@ class Loading extends StatelessWidget {
                       height: 50,
                     ),
                   ),
-                  SizedBox(width: defaultPadding * 0.5),
+                  SizedBox(width: Sizes.defaultPadding * 0.5),
                   Expanded(
                     child: Skelton(
                       width: double.maxFinite,
@@ -53,7 +53,7 @@ class Loading extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: Sizes.defaultPadding),
               Expanded(
                 child: ListView.builder(
                   itemCount: 10,
@@ -77,8 +77,8 @@ class MusicSkelton extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Skelton(
       margin: EdgeInsets.symmetric(
-        vertical: defaultPadding * 0.1,
-        horizontal: defaultPadding * 0.5,
+        vertical: Sizes.defaultPadding * 0.1,
+        horizontal: Sizes.defaultPadding * 0.5,
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(
@@ -115,7 +115,7 @@ class Skelton extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor.withOpacity(0.7),
-        borderRadius: BorderRadius.circular(defaultBorderRaduis),
+        borderRadius: BorderRadius.circular(Sizes.defaultBorderRaduis),
         border: Border.all(
           color: Theme.of(context).cardColor.withOpacity(0.5),
         ),

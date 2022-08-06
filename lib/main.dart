@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mousika/error.dart';
-import 'package:mousika/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:mousika/loading.dart';
 import 'manager/page_manager.dart';
+import 'providers/providers.dart';
 import 'screens/Home/home_page.dart';
 import 'screens/setting/setting_page.dart';
 import 'services/notification.dart';
@@ -16,7 +16,7 @@ Future initializeHive() async {
   await Hive.initFlutter();
   Box box = await Hive.openBox('mousika');
 
-  box.put('theme', box.get('theme') ?? 'dark');
+  box.put('theme', 'light');
 }
 
 Future<void> main() async {

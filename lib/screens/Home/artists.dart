@@ -1,7 +1,5 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:mousika/components/music_container.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/manager/page_manager.dart';
 import 'package:mousika/services/service_locator.dart';
 import 'package:mousika/services/songs_provider.dart';
@@ -15,7 +13,7 @@ class Artists extends StatelessWidget {
     Songs().getSongsByArtist();
 
     return Padding(
-      padding: const EdgeInsets.only(top: defaultPadding * 2),
+      padding: const EdgeInsets.only(top: Sizes.defaultPadding * 2),
       child: GridView.count(
         crossAxisCount: 2,
         children: [
@@ -71,7 +69,7 @@ class Artists extends StatelessWidget {
       ),
     );
     // return Padding(
-    //   padding: const EdgeInsets.only(top: defaultPadding * 2),
+    //   padding: const EdgeInsets.only(top: Sizes.defaultPadding * 2),
     //   child: ValueListenableBuilder<List<MediaItem>>(
     //     valueListenable: pageManager.playlistNotifier,
     //     builder: (_, playlist, __) {

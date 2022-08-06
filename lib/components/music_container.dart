@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mousika/components/music_card.dart';
 import 'package:mousika/components/music_image.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 import 'package:mousika/screens/musicPlayer/music_player.dart';
 import 'package:mousika/services/goto.dart';
 
@@ -37,8 +37,8 @@ class MusicContainer extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.symmetric(
-          vertical: defaultPadding * 0.1,
-          horizontal: defaultPadding * 0.5,
+          vertical: Sizes.defaultPadding * 0.1,
+          horizontal: Sizes.defaultPadding * 0.5,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -49,7 +49,7 @@ class MusicContainer extends StatelessWidget {
           builder: (_, song, __) {
             return ListTile(
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding * 0.5,
+                horizontal: Sizes.defaultPadding * 0.5,
               ),
               leading: currentSong.extras!['image'] == null
                   ? const MusicCard(
@@ -97,7 +97,8 @@ class MusicContainer extends StatelessWidget {
                   ),
                 ],
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultBorderRaduis),
+                  borderRadius:
+                      BorderRadius.circular(Sizes.defaultBorderRaduis),
                 ),
               ),
             );

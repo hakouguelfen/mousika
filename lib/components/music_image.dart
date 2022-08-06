@@ -1,7 +1,7 @@
 import 'dart:typed_data' as td;
 
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 
 class MusicImage extends StatelessWidget {
   const MusicImage({super.key, required this.image});
@@ -16,7 +16,7 @@ class MusicImage extends StatelessWidget {
           image: MemoryImage(image),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.circular(defaultPadding * 0.5),
+        borderRadius: BorderRadius.circular(Sizes.defaultPadding * 0.5),
       ),
     );
   }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mousika/constants.dart';
+import 'package:mousika/config/config.dart';
 
 class MusicCard extends StatelessWidget {
   const MusicCard({
-    Key? key,
+    super.key,
     required this.width,
     required this.size,
     required this.opacity,
     required this.height,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final double width;
   final double height;
@@ -22,15 +22,15 @@ class MusicCard extends StatelessWidget {
     return Container(
       width: width,
       height: double.maxFinite,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor.withOpacity(opacity),
+        borderRadius:
+            const BorderRadius.all(Radius.circular(Sizes.defaultBorderRaduis)),
+      ),
       child: Icon(
         icon,
         color: Colors.blueAccent,
         size: size,
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor.withOpacity(opacity),
-        borderRadius:
-            const BorderRadius.all(Radius.circular(defaultBorderRaduis)),
       ),
     );
   }
