@@ -66,7 +66,7 @@ class MusicContainer extends StatelessWidget {
                 semanticsLabel: "song name",
                 style: TextStyle(
                   color: song == currentSong
-                      ? Theme.of(context).colorScheme.primaryContainer
+                      ? Theme.of(context).backgroundColor.withRed(2)
                       : Theme.of(context).textTheme.bodyText2!.color!,
                 ),
               ),

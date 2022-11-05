@@ -7,62 +7,16 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent),
-      bottomNavigationBar: Skelton(
-        width: double.maxFinite,
-        height: 180,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const MusicSkelton(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Skelton(
-                  width: 50,
-                  height: 50,
-                ),
-                Skelton(
-                  width: 50,
-                  height: 50,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: Sizes.defaultPadding * 2),
-          child: Column(
-            children: [
-              Row(
-                children: const [
-                  Expanded(
-                    child: Skelton(
-                      width: double.maxFinite,
-                      height: 50,
-                    ),
-                  ),
-                  SizedBox(width: Sizes.defaultPadding * 0.5),
-                  Expanded(
-                    child: Skelton(
-                      width: double.maxFinite,
-                      height: 50,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: Sizes.defaultPadding),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    return const MusicSkelton();
-                  },
-                ),
-              )
-            ],
+          child: Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return const MusicSkelton();
+              },
+            ),
           ),
         ),
       ),

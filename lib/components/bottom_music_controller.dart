@@ -7,6 +7,7 @@ import 'package:mousika/config/config.dart';
 import 'package:mousika/notifiers/play_button_notifier.dart';
 import 'package:mousika/notifiers/progressbar_notifier.dart';
 import 'package:mousika/screens/musicPlayer/music_player.dart';
+import 'package:mousika/services/goto.dart';
 
 import '../manager/page_manager.dart';
 import '../services/service_locator.dart';
@@ -24,22 +25,14 @@ class BottomMusicController extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: () {
-        Navigator.of(context).push(
-          PageRouteBuilder(
-            transitionDuration: const Duration(milliseconds: 700),
-            pageBuilder: (context, animation, _) => MusicPlayer(
-              currentSong: currentSong,
-            ),
-          ),
-        );
+        goto(context, MusicPlayer(currentSong: currentSong));
       },
       child: Container(
         width: double.maxFinite,
         height: height * 0.08,
-        margin: const EdgeInsets.only(
-          left: Sizes.defaultPadding * 0.5,
-          right: Sizes.defaultPadding * 0.5,
-          top: Sizes.defaultPadding,
+        margin: const EdgeInsets.symmetric(
+          horizontal: Sizes.defaultPadding * 0.5,
+          vertical: Sizes.defaultPadding,
         ),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -63,9 +56,13 @@ class BottomMusicController extends StatelessWidget {
                   height: height * 0.1,
                   duration: const Duration(seconds: 1),
                   curve: Curves.fastOutSlowIn,
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.5),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.36),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 );
               },
             ),

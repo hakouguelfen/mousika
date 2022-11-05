@@ -40,11 +40,12 @@ class _MusicSliderState extends State<MusicSlider> {
                 handlerSize: 10,
               ),
               customColors: CustomSliderColors(
-                progressBarColor: Theme.of(context).primaryColor,
+                progressBarColor: Theme.of(context).backgroundColor,
                 trackColor: Theme.of(context).cardColor,
-                dotColor: Theme.of(context).colorScheme.primaryContainer,
-                shadowColor: Theme.of(context).primaryColor.withOpacity(0.2),
-                shadowStep: 10,
+                dotColor: Theme.of(context).colorScheme.secondary,
+                shadowColor:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                shadowStep: 6,
               ),
               size: double.maxFinite,
             ),

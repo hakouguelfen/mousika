@@ -5,7 +5,6 @@ import 'package:mousika/components/custom_search_delegate.dart';
 import 'package:mousika/config/config.dart';
 import 'package:mousika/manager/page_manager.dart';
 import 'package:mousika/screens/Home/all_songs.dart';
-import 'package:mousika/screens/Home/artists.dart';
 import 'package:mousika/services/service_locator.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,33 +12,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<Tab> myTabs = <Tab>[
-      Tab(child: Text('all songs')),
-      Tab(child: Text('artists')),
-    ];
     final pageManager = getIt<PageManager>();
 
-    return DefaultTabController(
-      length: myTabs.length,
-      child: Scaffold(
-        appBar: buildAppBar(context, myTabs),
-        body: const TabBarView(
-          children: [
-            AllSongs(),
-            Artists(),
-          ],
-        ),
-        bottomNavigationBar: ValueListenableBuilder<MediaItem>(
-          valueListenable: pageManager.currentSongNotifier,
-          builder: (_, song, __) {
-            return BottomMusicController(currentSong: song);
-          },
-        ),
+    return Scaffold(
+      appBar: buildAppBar(context),
+      body: const SafeArea(
+        child: AllSongs(),
+      ),
+      bottomNavigationBar: ValueListenableBuilder<MediaItem>(
+        valueListenable: pageManager.currentSongNotifier,
+        builder: (_, song, __) {
+          return BottomMusicController(currentSong: song);
+        },
       ),
     );
   }
 
-  AppBar buildAppBar(BuildContext context, List<Tab> myTabs) {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Text(
         'Mousika',
@@ -58,7 +47,6 @@ class HomePage extends StatelessWidget {
           icon: const Icon(Icons.search_rounded),
         )
       ],
-      bottom: TabBar(tabs: myTabs),
     );
   }
 }

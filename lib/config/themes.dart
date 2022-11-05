@@ -57,7 +57,7 @@ ThemeData darkThemeData(BuildContext context) {
     ),
     cardColor: Palette.black2,
     floatingActionButtonTheme:
-        floatingActionButtonThemeData(Palette.black2, Palette.primaryColor),
+        floatingActionButtonThemeData(Palette.black2, Palette.secondaryColor),
     navigationBarTheme: navigationBarThemeData(Palette.black1),
     tabBarTheme: tabBarTheme(
       Palette.white1,
@@ -136,12 +136,11 @@ NavigationBarThemeData navigationBarThemeData(bgColor) {
     labelTextStyle: MaterialStateProperty.all(
       const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
     ),
-    indicatorColor: Palette.primaryColor,
+    indicatorColor: Palette.primaryLightColor,
     iconTheme: MaterialStateProperty.all(
       const IconThemeData(size: 30),
     ),
-    labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+    labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
     backgroundColor: bgColor,
-    height: 100,
   );
 }
