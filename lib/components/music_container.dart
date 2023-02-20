@@ -22,6 +22,7 @@ class MusicContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageManager = getIt<PageManager>();
+    final theme = Theme.of(context);
 
     return InkWell(
       borderRadius: BorderRadius.circular(10),
@@ -35,22 +36,25 @@ class MusicContainer extends StatelessWidget {
           goto(context, MusicPlayer(currentSong: currentSong));
         }
       },
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: Sizes.defaultPadding * 0.1,
-          horizontal: Sizes.defaultPadding * 0.5,
-        ),
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: ValueListenableBuilder<MediaItem>(
-          valueListenable: pageManager.currentSongNotifier,
-          builder: (_, song, __) {
-            return ListTile(
+      child: ValueListenableBuilder<MediaItem>(
+        valueListenable: pageManager.currentSongNotifier,
+        builder: (_, song, __) {
+          return Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: Sizes.defaultPadding * 0.1,
+              horizontal: Sizes.defaultPadding * 0.5,
+            ),
+            decoration: BoxDecoration(
+              color: song == currentSong
+                  ? theme.colorScheme.secondary.withOpacity(0.5)
+                  : null,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListTile(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: Sizes.defaultPadding * 0.5,
               ),
+              dense: true,
               leading: currentSong.extras!['image'] == null
                   ? const MusicCard(
                       width: 80,
@@ -64,46 +68,20 @@ class MusicContainer extends StatelessWidget {
                 currentSong.title,
                 overflow: TextOverflow.ellipsis,
                 semanticsLabel: "song name",
-                style: TextStyle(
-                  color: song == currentSong
-                      ? Theme.of(context).backgroundColor.withRed(2)
-                      : Theme.of(context).textTheme.bodyText2!.color!,
+                style: theme.textTheme.titleSmall!.copyWith(
+                  color: song == currentSong ? theme.colorScheme.primary : null,
                 ),
               ),
               subtitle: Text(
                 currentSong.artist ?? "",
                 semanticsLabel: "artist name",
-                style: TextStyle(
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .color!
-                      .withOpacity(0.75),
+                style: theme.textTheme.titleSmall!.copyWith(
+                  fontSize: 10,
                 ),
               ),
-              trailing: PopupMenuButton(
-                itemBuilder: (context) => const [
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.edit),
-                      title: Text('edit'),
-                    ),
-                  ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.delete),
-                      title: Text('delete'),
-                    ),
-                  ),
-                ],
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Sizes.defaultBorderRaduis),
-                ),
-              ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

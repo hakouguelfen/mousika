@@ -30,8 +30,6 @@ class MusicController extends ConsumerWidget {
           builder: (_, buttonState, __) {
             return PlayButton(
               press: () {
-                // ButtonState state = ref.watch(productSortTypeProvider);
-                // print(state);
                 buttonState == ButtonState.paused
                     ? pageManager.play()
                     : pageManager.pause();

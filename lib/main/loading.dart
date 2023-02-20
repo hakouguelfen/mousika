@@ -10,13 +10,11 @@ class Loading extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: Sizes.defaultPadding * 2),
-          child: Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                return const MusicSkelton();
-              },
-            ),
+          child: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (BuildContext context, int index) {
+              return const MusicSkelton();
+            },
           ),
         ),
       ),

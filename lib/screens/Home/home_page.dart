@@ -15,38 +15,32 @@ class HomePage extends StatelessWidget {
     final pageManager = getIt<PageManager>();
 
     return Scaffold(
-      appBar: buildAppBar(context),
-      body: const SafeArea(
-        child: AllSongs(),
+      appBar: AppBar(
+        title: Text(
+          'Mousika',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        leading: const Padding(
+          padding: EdgeInsets.all(Sizes.defaultPadding * 0.5),
+          child: Image(image: AssetImage('assets/icons/logo.png')),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () => showSearch(
+              context: context,
+              delegate: CustomSearchDelegate(),
+            ),
+            icon: const Icon(Icons.search_rounded),
+          )
+        ],
       ),
+      body: const SafeArea(child: AllSongs()),
       bottomNavigationBar: ValueListenableBuilder<MediaItem>(
         valueListenable: pageManager.currentSongNotifier,
         builder: (_, song, __) {
           return BottomMusicController(currentSong: song);
         },
       ),
-    );
-  }
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        'Mousika',
-        style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
-      ),
-      leading: const Padding(
-        padding: EdgeInsets.all(Sizes.defaultPadding * 0.5),
-        child: Image(image: AssetImage('assets/icons/logo.png')),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () => showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(),
-          ),
-          icon: const Icon(Icons.search_rounded),
-        )
-      ],
     );
   }
 }
